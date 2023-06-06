@@ -10,6 +10,6 @@
 
 @layer components {
     .btn-primary {
-        @apply rounded-sm px-7 py-2.5 text-white font-semibold bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] hover:bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] hover:scale-105;
+        @apply rounded-sm px-7 py-2.5 text-white font-semibold bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] hover:scale-105;
     }
 }
