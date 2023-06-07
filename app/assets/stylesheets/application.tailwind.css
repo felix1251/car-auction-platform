@@ -16,4 +16,12 @@
     .btn-ghost {
         @apply rounded-sm px-7 py-2.5 text-primary bg-white font-semibold border border-primary hover:shadow-md hover:scale-101;
     }
+
+    .input-label {
+        @apply text-secondary font-semibold text-sm;
+    }
+
+    .input-primary {
+        @apply px-3 py-2 font-normal rounded-sm text-secondary border border-secondary-light placeholder-gray-400;
+    }
 }

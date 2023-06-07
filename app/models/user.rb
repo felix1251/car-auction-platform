@@ -1,4 +1,9 @@
 class User < ApplicationRecord
-    has_one_attached :profile_img
-    enum :role, { user: "USER", admin: "ADMIN" }
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  has_one_attached :avatar
+  enum :role, { user: "USER", admin: "ADMIN" }
 end
