@@ -14,6 +14,6 @@
     }
 
     .btn-ghost {
-        @apply rounded-sm px-7 py-2.5 text-primary font-semibold border border-primary hover:shadow-md hover:scale-101;
+        @apply rounded-sm px-7 py-2.5 text-primary bg-white font-semibold border border-primary hover:shadow-md hover:scale-101;
     }
 }
