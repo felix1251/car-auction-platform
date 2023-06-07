@@ -4,8 +4,8 @@ module Components
         render Organisms::HeaderComponent.new
       end
 
-      def sticky_header_filter_component
-        render Organisms::StickyHeaderFilterComponent.new
+      def sticky_filter_component
+        render Organisms::StickyFilterComponent.new
       end
   end
 end
