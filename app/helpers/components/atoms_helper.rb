@@ -19,5 +19,13 @@ module Components
     def input_password_component form:, label: nil, name: "", placeholder: nil
       render Atoms::InputPasswordComponent.new form: form, label: label, name: name, placeholder: placeholder
     end
+
+    def input_year_component form:, label: nil, name: ""
+      render Atoms::InputYearComponent.new form: form, label: label, name: name
+    end
+
+    def input_date_component form:, label: nil, name: ""
+      render Atoms::InputDateComponent.new form: form, label: label, name: name
+    end
   end
 end

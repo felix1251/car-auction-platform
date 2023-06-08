@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_one_attached :avatar
+  has_one_attached :profile
+  has_many :auctions
   validates :fullname, presence: true
+  validates :email, presence: :true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP , :message => "Email format is invalid"}
   enum :role, { user: "USER", admin: "ADMIN" }
 end

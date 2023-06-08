@@ -1,0 +1,4 @@
+<div class="grid gap-1">
+    <%= @form.label @label || @name, class: "input-label" %>
+    <%= @form.datetime_field @name, min: Date.today, class: "input-primary" %>
+</div>

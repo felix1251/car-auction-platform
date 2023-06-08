@@ -1,0 +1,26 @@
+<%= form_with(model: auction, class: "space-y-3 p-5 bg-white border") do |form| %>
+  <% if auction.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(auction.errors.count, "error") %> prohibited this auction from being saved:</h2>
+      <ul>
+        <% auction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= input_text_component form: form, name: :brand %>
+
+  <div class="grid grid-cols-2 gap-3">
+    <%= input_number_component form: form, name: :opening_price %>
+    <%= input_number_component form: form, name: :price_increment %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-3">
+    <%= input_year_component form: form, name: :year %>
+    <%= input_date_component form: form, name: :expired_at %>
+  </div>
+
+  <%= form.submit class: "btn-primary" %>
+<% end %>

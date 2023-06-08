@@ -1,8 +1,8 @@
 <nav class="h-20 border-b bg-white flex items-center">
     <div class="max-w-[1300px] mx-auto w-full px-5 flex justify-between">
-        <div class="font-black text-3xl text-secondary">
+        <a href="/" class="font-black text-3xl text-secondary">
             Auction <span class="text-primary">Cars</span>
-        </div>
+        </a>
         <div>
             <% if user_signed_in? %>
                 <span class="font-medium text-secondary"><%= current_user.fullname %></span>

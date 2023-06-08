@@ -18,10 +18,14 @@
     }
 
     .input-label {
-        @apply text-secondary font-semibold text-sm;
+        @apply text-secondary font-semibold;
     }
 
     .input-primary {
         @apply w-full px-3 py-2 font-normal rounded-sm text-secondary border border-secondary-light placeholder-gray-400;
+    }
+
+    .input-year {
+        @apply w-full font-normal rounded-sm text-secondary border border-secondary-light placeholder-gray-400;
     }
 }
