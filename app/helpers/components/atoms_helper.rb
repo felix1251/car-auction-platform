@@ -27,5 +27,9 @@ module Components
     def input_date_component form:, label: nil, name: "", required: false
       render Atoms::InputDateComponent.new form: form, label: label, name: name, required: required
     end
+
+    def input_image_component form:, label: nil, name: "", required: false
+      render Atoms::InputImageComponent.new form: form, label: label, name: name, required: required
+    end
   end
 end
