@@ -1,0 +1,4 @@
+<div class="grid">
+    <%= @form.label @label || @name, class: "input-label" %>
+    <%= @form.number_field @name , class:"input-primary", placeholder: @placeholder || @label || @name %>
+</div>
