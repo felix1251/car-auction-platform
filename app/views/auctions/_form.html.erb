@@ -10,16 +10,26 @@
     </div>
   <% end %>
 
-  <%= input_text_component form: form, name: :brand %>
+  <%= input_text_component form: form, name: :brand, required: true %>
 
   <div class="grid grid-cols-2 gap-3">
-    <%= input_number_component form: form, name: :opening_price %>
-    <%= input_number_component form: form, name: :price_increment %>
+    <%= input_number_component form: form, name: :opening_price, required: true %>
+    <%= input_number_component form: form, name: :price_increment, required: true %>
   </div>
 
   <div class="grid grid-cols-2 gap-3">
-    <%= input_year_component form: form, name: :year %>
-    <%= input_date_component form: form, name: :expired_at %>
+    <%= input_year_component form: form, name: :year, required: true %>
+    <%= input_date_component form: form, name: :expired_at, required: true %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :image , class: "input-label" %> <br/>
+    <%= form.file_field :image, accept: "image/*", required: action_name == "new" , class: "mt-3 block text-sm
+      file:mr-4 file:py-3 file:px-4 file:border-0
+      file:text-sm file:font-semibold file:bg-primary
+      file:border file:text-white
+      file:cursor-pointer"
+    %>
   </div>
 
   <%= form.submit class: "btn-primary" %>

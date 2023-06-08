@@ -1,4 +1,4 @@
 <div class="grid gap-1">
     <%= @form.label @label || @name, class: "input-label" %>
-    <%= @form.number_field @name , class:"input-primary", placeholder: @placeholder || @label || @name %>
+    <%= @form.number_field @name , class:"input-primary", placeholder: @placeholder || @label || @name, required: @required %>
 </div>
