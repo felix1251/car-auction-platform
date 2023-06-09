@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   resources :auctions
   devise_for :users
   resources :users
-  post "/bid", controller: :auctions, action: :bid, as: "bid"
+  post "/bid/:id", controller: :auctions, action: :bid, as: "bid"
 end

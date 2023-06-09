@@ -1,8 +1,15 @@
-<div class="bg-white border rounded-sm p-1.5 cursor-pointer space-y-2">
+<div id="auction_<%= @data.id %>" class="bg-white border rounded-sm p-1.5 space-y-2">
     <div class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
         Thursday 12, Dec 2019 - 15:00
     </div>
-    <div class="bg-gray-200 h-56 rounded-b-xl">
+    <div class="relative">
+        <%= image_tag @data.image, data: { preview_target: "image" }, class: "bg-gray-200 h-56 rounded-b-xl object-cover border" %>
+        <%= button_to bid_path(id: @data.id), method: :post,
+            params: { bid_amount: bid_amount },
+            class: "w-11 h-10 absolute bottom-3 bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] rounded-lg grid place-items-center right-3 cursor-pointer hover:shadow-md hover:scale-105" do
+        %>
+            <%= icon('fa-solid', 'gavel', class:"text-2xl text-white")%>
+        <% end %>
     </div>
     <div class="px-2 divide-y space-y-2">
         <div class="flex justify-between items-center">
@@ -31,9 +38,9 @@
              <div class="flex gap-2">
                 <%= icon('fa-solid', 'sack-dollar', class:"text-xl text-primary self-end mb-1")%>
                 <div>
-                    <label class="text-xs font-medium text-secondary-light">Buy now</label>
+                    <label class="text-xs font-medium text-secondary-light">Bid now</label>
                     <div class="font-semibold text-secondary">
-                        <%= @data.opening_price + @data.price_increment %>
+                        <%= bid_amount %>
                         <span class="text-xs text-primary">USD</span>
                     </div>
                 </div>

@@ -24,12 +24,19 @@ class AuctionsController < ApplicationController
   def bid
     ActiveRecord::Base.transaction do
       @auction.update(price_hold: @price_to_update)
-      current_user.auction_transactions.create!(auction_id: @auction.id, price_sold: price_update )
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("notification", partial: "auctions/success_notification"), locals: { auction: @auction }}
+      current_user.auction_transactions.create!(auction_id: @auction.id, price_sold: @price_to_update )
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("notification", partial: "auctions/success_notification"), locals: { auction: @auction }}
+      end
     end
   rescue ActiveRecord::RecordInvalid => exception
-    @errors = exception
-    format.html { render :bid, status: :unprocessable_entity }
+    puts "------------------:", exception
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("notification",
+        partial: "auctions/error_notification", locals: { error: "The bid price is already owned by someone or Invalid"}),
+        locals: { error: exception }
+      }
+    end
   end
 
   # POST /auctions or /auctions.json
@@ -77,12 +84,14 @@ class AuctionsController < ApplicationController
     end
 
     def check_transaction
-      @price_to_update = bid_params[:bid_amount].to_i
-      unless @auction.opening_price < @price_to_update
-            && @auction.price_hold < @price_to_update
-            && AuctionTransaction.where(price_sold: @price_to_update).any?
-
-          format.turbo_stream { render turbo_stream: turbo_stream.replace("notification", partial: "auctions/error_notification") }
+      @price_to_update = params[:bid_amount].to_i || 0
+      unless @price_to_update >= @auction.opening_price && @price_to_update >= @auction.price_hold && !@auction.auction_transactions.where(price_sold: @price_to_update).any?
+        respond_to do |format|
+          format.turbo_stream { render turbo_stream: turbo_stream.replace("notification",
+            partial: "auctions/error_notification", locals: { error: "The bid price is already owned by someone or Invalid"}),
+            status: :unprocessable_entity
+          }
+        end
       end
     end
 
