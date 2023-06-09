@@ -1,26 +1,33 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="grid place-items-center h-[600px]">
+  <div class="space-y-2 bg-white px-7 py-4 rounded-sm border">
+    <h2 class="font-bold text-secondary text-3xl text-center">Log in</h2>
+    <div class="text-red-500 text-sm">
+      <% flash.each do |name, msg| %>
+        <% if msg.class == Array %>
+          <% msg.each do |message| %>
+            <%= content_tag :div, message, :id => "flash_#{name}" %>
+          <% end %>
+        <% else %>
+          <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { class: "grid gap-2 w-[300px]"}) do |f| %>
+      <%= input_text_component form: f, label: :email, name: :email %>
+      <%= input_password_component form: f, label: :password, name: :password %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="mb-3 mt-2">
+        <%= f.submit "Log in", class: "btn-primary w-full cursor-pointer"%>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
   </div>
-<% end %>
+</div>
 
-<%= render "devise/shared/links" %>

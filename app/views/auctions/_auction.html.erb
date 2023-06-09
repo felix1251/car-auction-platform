@@ -1,0 +1,32 @@
+<div id="<%= dom_id auction %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Brand:</strong>
+    <%= auction.brand %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Year:</strong>
+    <%= auction.year %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Opening price:</strong>
+    <%= auction.opening_price %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price increment:</strong>
+    <%= auction.price_increment %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Expired at:</strong>
+    <%= auction.expired_at %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this auction", auction, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this auction', edit_auction_path(auction), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

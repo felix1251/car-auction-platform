@@ -1,9 +1,13 @@
 <nav class="h-20 border-b bg-white flex items-center">
     <div class="max-w-[1300px] mx-auto w-full px-5 flex justify-between">
-        <div class="font-black text-3xl text-secondary">
+        <a href="/" class="font-black text-3xl text-secondary">
             Auction <span class="text-primary">Cars</span>
-        </div>
-        <div class="w-9 h-9 bg-secondary rounded-full">
+        </a>
+        <div>
+            <% if user_signed_in? %>
+                <span class="font-medium text-secondary"><%= current_user.fullname %></span>
+                <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "text-primary underline" %>
+            <% end %>
         </div>
     </div>
 </nav>
