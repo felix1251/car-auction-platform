@@ -9,7 +9,7 @@
       </ul>
     </div>
   <% end %>
-
+  <%= input_image_component form: form, name: :image, required: true , data: @auction %>
   <%= input_text_component form: form, name: :brand, required: true %>
 
   <div class="grid grid-cols-2 gap-3">
@@ -21,8 +21,5 @@
     <%= input_year_component form: form, name: :year, required: true %>
     <%= input_date_component form: form, name: :expired_at, required: true %>
   </div>
-
-  <%= input_image_component form: form, name: :image, required: true %>
-
   <%= form.submit class: "btn-primary w-fit" %>
 <% end %>

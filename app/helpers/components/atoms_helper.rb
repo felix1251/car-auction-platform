@@ -28,8 +28,8 @@ module Components
       render Atoms::InputDateComponent.new form: form, label: label, name: name, required: required
     end
 
-    def input_image_component form:, label: nil, name: "", required: false
-      render Atoms::InputImageComponent.new form: form, label: label, name: name, required: required
+    def input_image_component form:, label: nil, name: "", required: false, data: nil
+      render Atoms::InputImageComponent.new form: form, label: label, name: name, required: required, data: data
     end
   end
 end

@@ -1,9 +1,21 @@
-<div class="flex flex-col h-fit gap-1">
-    <%= @form.label @label || @name, class: "input-label" %>
-    <%= @form.file_field @name, accept: "image/*", required: @required, placeholder: "image",  class: "block text-sm
-      file:mr-4 file:py-3 file:px-4 file:border-0
-      file:text-sm file:font-semibold file:bg-primary
-      file:border file:text-white
-      file:cursor-pointer"
+<label data-controller="preview" class="h-[300px] cursor-pointer flex flex-col items-center justify-center place-items-center border-2 border-secondary-light p-5 rounded-lg border-dashed hover:border-primary">
+    <% if @data&.image&.attached? %>
+        <%= image_tag @data.image, data: { preview_target: "image" }, class: "h-full rounded-lg" %>
+    <% else %>
+        <%= image_tag "", data: { preview_target: "image" }, class: "h-full rounded-lg hidden" %>
+        <div data-preview-target="partial" class="flex flex-col items-center justify-center">
+            <strong class="mt-6 mb-2 text-gray-600 font-medium">
+                Drop your image here or
+                <span class="text-primary">browse</span>
+            </strong>
+            <span class="text-sm">Support: jpeg, jpg, png</span>
+        </div>
+    <% end %>
+    <%= @form.file_field @name,
+        direct_upload: true,
+        accept: "image/*",
+        required: @required,
+        class: "hidden",
+        data: { preview_target: "input", action: "change->preview#display" }
     %>
-</div>
+</label>
