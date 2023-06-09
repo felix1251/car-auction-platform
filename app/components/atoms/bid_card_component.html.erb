@@ -1,6 +1,10 @@
 <div id="auction_<%= @data.id %>" class="bg-white border rounded-sm p-1.5 space-y-2">
     <div class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
-        <%= @data.expired_at %>
+        <% if is_expired %>
+            Closed
+        <% else %>
+            Expires at: <%= @data.expired_at.to_formatted_s(:long_ordinal) %>
+        <% end %>
     </div>
     <div class="relative">
         <%= image_tag @data.image, data: { preview_target: "image" }, class: "bg-gray-200 h-56 rounded-b-xl object-cover border w-full object-center" %>
@@ -8,12 +12,13 @@
             <%= link_to edit_auction_path(id: @data.id), class:"underline text-primary absolute bottom-3 right-3" do %>
                 <%= icon('fa-solid', 'edit', class:"text-3xl text-primary self-end mb-1") %>
             <% end %>
-        <% else %>
+        <% end %>
+        <% if !is_expired && !owned_by_current_user%>
             <%= button_to bid_path(id: @data.id), method: :post,
                 params: { bid_amount: bid_amount },
                 class: "flex flex-row gap-2 px-4 py-2 absolute bottom-3 bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] rounded-lg right-3 cursor-pointer hover:shadow-md hover:scale-105" do
             %>
-                <%= icon('fa-solid', 'gavel', class:"text-2xl text-white", id: "bid-icon")%>
+                <%= icon('fa-solid', 'gavel', class:"text-2xl text-white hover:fa-shake", id: "bid-icon")%>
                 <span class="font-semibold text-white uppercase">Bid</span>
             <% end %>
         <% end %>

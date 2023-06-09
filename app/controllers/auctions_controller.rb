@@ -2,7 +2,7 @@ class AuctionsController < ApplicationController
   delegate :notification_component, to: :helpers
   before_action :authenticate_user!
   before_action :set_auction, only: %i[ show edit update destroy bid ]
-  before_action :check_transaction, only: %i[ bid ]
+  before_action :is_bid_valid, only: %i[ bid ]
 
   # GET /auctions or /auctions.json
   def index
@@ -32,7 +32,7 @@ class AuctionsController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid => exception
     respond_to do |format|
-      format.turbo_stream { render "bid_notif", locals: { msg: "You successfully bid an account", error: true } }
+      format.turbo_stream { render "bid_notif", locals: { msg: "Can't process bid, somethig is wrong", error: true } }
     end
   end
 
@@ -80,14 +80,18 @@ class AuctionsController < ApplicationController
       @auction = Auction.find(params[:id])
     end
 
-    def check_transaction
+    def is_bid_valid
       @price_to_update = params[:bid_amount].to_i || 0
-      unless @price_to_update >= @auction.opening_price && @price_to_update >= @auction.price_hold && !@auction.auction_transactions.where(price_sold: @price_to_update).any?
+
+      unless @auction.expired_at >= Date.today &&
+            @price_to_update >= @auction.opening_price &&
+            @price_to_update >= @auction.price_hold &&
+            !@auction.auction_transactions.where(price_sold: @price_to_update).any?
+
         respond_to do |format|
-          format.turbo_stream { render turbo_stream: turbo_stream.replace("notification",
-            partial: "auctions/error_notification",
-            locals: { message: "The bid price is already owned by someone or Invalid"}),
-            status: :unprocessable_entity
+          format.turbo_stream { render "bid_notif",
+            locals: { msg: "Bid Invalid, try to refresh page", error: true },
+            status: :bad_request
           }
         end
       end

@@ -18,4 +18,8 @@ class Atoms::BidCardComponent < ViewComponent::Base
     def owned_by_current_user
         @data.user_id == current_user.id
     end
+
+    def is_expired
+        @data.expired_at <= Date.today
+    end
 end
