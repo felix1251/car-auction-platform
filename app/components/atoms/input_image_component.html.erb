@@ -1,16 +1,12 @@
 <label data-controller="preview" class="h-[300px] cursor-pointer flex flex-col items-center justify-center place-items-center border-2 border-secondary-light p-5 rounded-lg border-dashed hover:border-primary">
-    <% if @data&.image&.attached? %>
-        <%= image_tag @data.image, data: { preview_target: "image" }, class: "h-full rounded-lg" %>
-    <% else %>
-        <%= image_tag "", data: { preview_target: "image" }, class: "h-full rounded-lg hidden" %>
-        <div data-preview-target="partial" class="flex flex-col items-center justify-center">
-            <strong class="mt-6 mb-2 text-gray-600 font-medium">
-                Drop your image here or
-                <span class="text-primary">browse</span>
-            </strong>
-            <span class="text-sm">Support: jpeg, jpg, png</span>
-        </div>
-    <% end %>
+    <%= image_tag is_image_attached ? @data&.image : "", data: { preview_target: "image" }, class: "h-full rounded-lg #{ !is_image_attached && "hidden" }" %>
+    <div data-preview-target="partial" class="flex flex-col items-center justify-center <%= "hidden" if is_image_attached %>">
+        <strong class="mt-6 mb-2 text-gray-600 font-medium ">
+            Drop your image here or
+            <span class="text-primary">browse</span>
+        </strong>
+        <span class="text-sm">Support: jpeg, jpg, png</span>
+    </div>
     <%= @form.file_field @name,
         direct_upload: true,
         accept: "image/*",

@@ -51,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_023540) do
 
   create_table "auctions", charset: "utf8mb4", force: :cascade do |t|
     t.string "brand", null: false
+    t.string "car_type", null: false
     t.string "year", null: false
     t.integer "opening_price", null: false
     t.integer "price_increment", null: false

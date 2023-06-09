@@ -1,4 +1,5 @@
 class AuctionsController < ApplicationController
+  delegate :notification_component, to: :helpers
   before_action :authenticate_user!
   before_action :set_auction, only: %i[ show edit update destroy bid ]
   before_action :check_transaction, only: %i[ bid ]
@@ -26,16 +27,12 @@ class AuctionsController < ApplicationController
       @auction.update(price_hold: @price_to_update)
       current_user.auction_transactions.create!(auction_id: @auction.id, price_sold: @price_to_update )
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("notification", partial: "auctions/success_notification"), locals: { auction: @auction }}
+        format.turbo_stream { render "bid_notif", locals: { msg: "You successfully bid an auction", error: false } }
       end
     end
   rescue ActiveRecord::RecordInvalid => exception
-    puts "------------------:", exception
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("notification",
-        partial: "auctions/error_notification", locals: { error: "The bid price is already owned by someone or Invalid"}),
-        locals: { error: exception }
-      }
+      format.turbo_stream { render "bid_notif", locals: { msg: "You successfully bid an account", error: true } }
     end
   end
 
@@ -88,7 +85,8 @@ class AuctionsController < ApplicationController
       unless @price_to_update >= @auction.opening_price && @price_to_update >= @auction.price_hold && !@auction.auction_transactions.where(price_sold: @price_to_update).any?
         respond_to do |format|
           format.turbo_stream { render turbo_stream: turbo_stream.replace("notification",
-            partial: "auctions/error_notification", locals: { error: "The bid price is already owned by someone or Invalid"}),
+            partial: "auctions/error_notification",
+            locals: { message: "The bid price is already owned by someone or Invalid"}),
             status: :unprocessable_entity
           }
         end
@@ -97,7 +95,7 @@ class AuctionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def auction_params
-      params.require(:auction).permit(:brand, :year, :opening_price, :price_increment, :expired_at, :image)
+      params.require(:auction).permit(:brand, :year, :opening_price, :price_increment, :expired_at, :image, :car_type)
     end
 
     def bid_params

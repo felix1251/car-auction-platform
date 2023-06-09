@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Atoms::BidCardComponent < ViewComponent::Base
+    delegate :current_user, to: :helpers
+
     def initialize data:
         @data = data
     end
@@ -11,5 +13,9 @@ class Atoms::BidCardComponent < ViewComponent::Base
         else
             @data.opening_price + @data.price_increment
         end
+    end
+
+    def owned_by_current_user
+        @data.user_id == current_user.id
     end
 end

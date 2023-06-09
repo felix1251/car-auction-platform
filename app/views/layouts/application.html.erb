@@ -10,7 +10,8 @@
         <%= javascript_importmap_tags %>
     </head>
     <body>
-        <div id="notification"></div>
+        <%= turbo_frame_tag "notification" do %>
+        <% end %>
         <%= primary_layout_component router_view: yield %>
     </body>
 </html>

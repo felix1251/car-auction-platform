@@ -8,4 +8,8 @@ class Atoms::InputImageComponent < ViewComponent::Base
         @required = required
         @data = data
     end
+
+    def is_image_attached
+        @data&.image&.attached?
+    end
 end
