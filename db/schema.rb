@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_073542) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_023540) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_073542) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "auction_transactions", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "auction_id", null: false
+    t.integer "price_sold", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auction_id"], name: "index_auction_transactions_on_auction_id"
+    t.index ["user_id"], name: "index_auction_transactions_on_user_id"
+  end
+
   create_table "auctions", charset: "utf8mb4", force: :cascade do |t|
     t.string "brand", null: false
     t.string "year", null: false
@@ -46,6 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_073542) do
     t.integer "price_increment", null: false
     t.datetime "expired_at", null: false
     t.bigint "user_id"
+    t.integer "price_hold", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_auctions_on_user_id"
@@ -68,4 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_073542) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "auction_transactions", "auctions"
+  add_foreign_key "auction_transactions", "users"
 end

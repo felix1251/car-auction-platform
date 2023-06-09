@@ -2,13 +2,14 @@
     <%= sticky_filter_component %>
     <div class="w-full space-y-4">
         <div class="grid grid-cols-3 gap-4">
-           <%= bid_card_component %>
-           <%= bid_card_component %>
-           <%= bid_card_component %>
-           <%= bid_card_component %>
+            <% @auctions.each do | auction | %>
+                <%= bid_card_component data: auction %>
+            <% end %>
         </div>
-        <div class="grid place-items-center">
-            <%= btn_component label: "Shore more", btn_type: "ghost", extra_css: "w-fit" %>
-        </div>
+        <% if @pagy.next %>
+            <div class="grid place-items-center">
+                <%= btn_component label: "Shore more", btn_type: "ghost", extra_css: "w-fit" %>
+            </div>
+        <%end%>
     </div>
 </div>

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Atoms::BidCardComponent < ViewComponent::Base
-    def initialize
+    def initialize data:
+        @data = data
     end
 end

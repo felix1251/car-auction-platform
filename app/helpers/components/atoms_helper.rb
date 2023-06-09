@@ -4,8 +4,8 @@ module Components
       render Atoms::ButtonComponent.new btn_type: btn_type, label: label, extra_css: extra_css
     end
 
-    def bid_card_component
-      render Atoms::BidCardComponent.new
+    def bid_card_component data: []
+      render Atoms::BidCardComponent.new data: data
     end
 
     def input_text_component form:, label: nil, name: "", placeholder: nil, required: false

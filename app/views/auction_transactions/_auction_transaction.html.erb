@@ -1,0 +1,22 @@
+<div id="<%= dom_id auction_transaction %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= auction_transaction.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Auction:</strong>
+    <%= auction_transaction.auction_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Price sold:</strong>
+    <%= auction_transaction.price_sold %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this auction transaction", auction_transaction, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this auction transaction', edit_auction_transaction_path(auction_transaction), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

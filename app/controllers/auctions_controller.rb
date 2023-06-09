@@ -1,6 +1,7 @@
 class AuctionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_auction, only: %i[ show edit update destroy ]
+  before_action :set_auction, only: %i[ show edit update destroy bid ]
+  before_action :check_transaction, only: %i[ bid ]
 
   # GET /auctions or /auctions.json
   def index
@@ -18,6 +19,17 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1/edit
   def edit
+  end
+
+  def bid
+    ActiveRecord::Base.transaction do
+      @auction.update(price_hold: @price_to_update)
+      current_user.auction_transactions.create!(auction_id: @auction.id, price_sold: price_update )
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("notification", partial: "auctions/success_notification"), locals: { auction: @auction }}
+    end
+  rescue ActiveRecord::RecordInvalid => exception
+    @errors = exception
+    format.html { render :bid, status: :unprocessable_entity }
   end
 
   # POST /auctions or /auctions.json
@@ -64,8 +76,22 @@ class AuctionsController < ApplicationController
       @auction = Auction.find(params[:id])
     end
 
+    def check_transaction
+      @price_to_update = bid_params[:bid_amount].to_i
+      unless @auction.opening_price < @price_to_update
+            && @auction.price_hold < @price_to_update
+            && AuctionTransaction.where(price_sold: @price_to_update).any?
+
+          format.turbo_stream { render turbo_stream: turbo_stream.replace("notification", partial: "auctions/error_notification") }
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def auction_params
       params.require(:auction).permit(:brand, :year, :opening_price, :price_increment, :expired_at, :image)
+    end
+
+    def bid_params
+      params.require(:auction).permit(:bid_amount)
     end
 end

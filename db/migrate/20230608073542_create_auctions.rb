@@ -7,6 +7,7 @@ class CreateAuctions < ActiveRecord::Migration[7.0]
       t.integer :price_increment, null: false
       t.datetime :expired_at, null: false
       t.references :user, index: true
+      t.integer :price_hold, default: 0
 
       t.timestamps
     end
