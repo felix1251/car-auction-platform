@@ -83,7 +83,8 @@ class AuctionsController < ApplicationController
     def is_bid_valid
       @price_to_update = params[:bid_amount].to_i || 0
 
-      unless @auction.expired_at >= Date.today &&
+      unless @auction.user_id != current_user.id &&
+            @auction.expired_at >= Date.today &&
             @price_to_update >= @auction.opening_price &&
             @price_to_update >= @auction.price_hold &&
             !@auction.auction_transactions.where(price_sold: @price_to_update).any?
