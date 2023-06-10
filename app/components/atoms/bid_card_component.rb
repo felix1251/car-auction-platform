@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Atoms::BidCardComponent < ViewComponent::Base
-    delegate :current_user, :price_display_component, :bid_btn_component, to: :helpers
+    delegate :current_user, :price_display_component,
+    :bid_btn_component, :bid_count_component, to: :helpers
 
     def initialize data:
         @data = data

@@ -9,6 +9,7 @@ class CreateAuctions < ActiveRecord::Migration[7.0]
       t.datetime :expired_at, null: false
       t.references :user, index: true
       t.integer :price_hold, default: 0
+      t.integer :bid_count, default: 0
 
       t.timestamps
     end

@@ -3,10 +3,18 @@
         <a href="/" class="font-black text-3xl text-secondary">
             Auction <span class="text-primary">Cars</span>
         </a>
-        <div>
-            <% if user_signed_in? %>
-                <span class="font-medium text-secondary"><%= current_user.fullname %></span>
-                <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "text-primary underline" %>
+        <div class="flex items-center gap-4">
+                <% if user_signed_in? %>
+                <%= link_to new_auction_path, class: "hover:scale-105" do %>
+                    <%= icon('fa-solid', 'square-plus', class:"text-4xl text-primary") %>
+                <% end %>
+                <div class="flex gap-3 items-center">
+                    <%= icon('fa-solid', 'user-circle', class:"text-4xl text-primary") %>
+                    <div>
+                        <div class="font-medium text-sm text-secondary"><%= current_user.fullname %></div>
+                        <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "-mt-1 text-primary underline" %>
+                    </div>
+                </div>
             <% end %>
         </div>
     </div>

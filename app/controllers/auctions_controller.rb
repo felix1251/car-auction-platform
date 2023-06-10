@@ -1,7 +1,8 @@
 class AuctionsController < ApplicationController
   delegate :notification_component, to: :helpers
   before_action :authenticate_user!
-  before_action :set_auction, only: %i[ show edit update destroy bid ]
+  before_action :set_auction, only: %i[ show bid ]
+  before_action :set_owner_only, only: %i[ edit update destroy]
   before_action :is_bid_valid, only: %i[ bid ]
 
   # GET /auctions or /auctions.json
@@ -24,7 +25,7 @@ class AuctionsController < ApplicationController
 
   def bid
     ActiveRecord::Base.transaction do
-      @auction.update(price_hold: @price_to_update)
+      @auction.update(price_hold: @price_to_update, bid_count: @auction.bid_count + 1)
       current_user.auction_transactions.create!(auction_id: @auction.id, price_sold: @price_to_update )
       respond_to do |format|
         format.turbo_stream { render "bid_notif", locals: { msg: "You successfully bid an auction", error: false } }
@@ -78,6 +79,10 @@ class AuctionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_auction
       @auction = Auction.find(params[:id])
+    end
+
+    def set_owner_only
+      @auction = current_user.auctions.find(params[:id])
     end
 
     def is_bid_valid
