@@ -1,5 +1,4 @@
 class AuctionsController < ApplicationController
-  delegate :notification_component, to: :helpers
   before_action :authenticate_user!
   before_action :set_auction, only: %i[ show bid ]
   before_action :set_owner_only, only: %i[ edit update destroy]

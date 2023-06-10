@@ -1,0 +1,21 @@
+<%= turbo_stream_from(:bid_cards) %>
+<div class="w-full space-y-4 my-4">
+    <h2 class="text-xl text-secondary font-semibold">
+        <% if @user.id == current_user.id %>
+            My Auctions
+        <% else %>
+            <%= @user.fullname %> Auctions
+        <% end %>
+    </h2>
+    <div class="grid grid-cols-4 gap-4">
+        <% @auctions.each do | auction | %>
+            <%= bid_card_component data: auction %>
+        <% end %>
+    </div>
+    <% if @pagy.next %>
+        <div class="grid place-items-center">
+            <%= btn_component label: "Shore more", btn_type: "ghost", extra_css: "w-fit" %>
+        </div>
+    <%end%>
+</div>
+

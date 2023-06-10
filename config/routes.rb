@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   post "/bid/:id", controller: :auctions, action: :bid, as: "bid"
+  get "/profile/:id", controller: :users, action: :profile, as: "profile"
 end

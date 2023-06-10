@@ -6,10 +6,12 @@
         <div class="flex items-center gap-4">
                 <% if user_signed_in? %>
                 <%= link_to new_auction_path, class: "hover:scale-105" do %>
-                    <%= icon('fa-solid', 'square-plus', class:"text-4xl text-primary") %>
+                    <%= icon('fa-solid', 'square-plus', class:"text-4xl text-secondary") %>
                 <% end %>
                 <div class="flex gap-3 items-center">
-                    <%= icon('fa-solid', 'user-circle', class:"text-4xl text-primary") %>
+                    <%= link_to profile_path(id: current_user.id), class: "hover:scale-105" do %>
+                        <%= icon('fa-solid', 'user-circle', class:"text-4xl text-primary") %>
+                    <% end %>
                     <div>
                         <div class="font-medium text-sm text-secondary"><%= current_user.fullname %></div>
                         <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "-mt-1 text-primary underline" %>
