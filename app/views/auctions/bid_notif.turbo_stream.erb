@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "notification" do %>
+    <% if !error %>
+        <%= notification_component notif_type: "success", msg: msg %>
+    <% else %>
+        <%= notification_component notif_type: "error", msg: msg %>
+    <% end %>
+<% end %>

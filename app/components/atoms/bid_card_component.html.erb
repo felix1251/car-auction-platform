@@ -1,16 +1,32 @@
-<div class="bg-white border rounded-sm p-1.5 cursor-pointer space-y-2">
+<div data-controller="auctioncard" id="auction_<%= @data.id %>" class="bg-white border rounded-sm p-1.5 space-y-2">
     <div class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
-        Thursday 12, Dec 2019 - 15:00
+        <% if is_expired %>
+            Closed
+        <% else %>
+            Expires at: <%= @data.expired_at.to_formatted_s(:long_ordinal) %>
+        <% end %>
     </div>
-    <div class="bg-gray-200 h-56 rounded-b-xl">
+    <div class="relative">
+        <%= image_tag @data.image, data: { preview_target: "image" }, class: "bg-gray-200 h-56 rounded-b-xl object-cover border w-full object-center" %>
+        <% if owned_by_current_user %>
+            <%= link_to edit_auction_path(id: @data.id),
+                data: { auctioncard_target: "action" },
+                class:"underline text-primary absolute bottom-3 right-3" do
+            %>
+                <%= icon('fa-solid', 'edit', class:"text-3xl text-primary self-end mb-1", data: { auctioncard_target: "icon" }) %>
+            <% end %>
+        <% end %>
+        <% if !is_expired && !owned_by_current_user%>
+            <%= bid_btn_component id: @data.id, hold_amount: hold_amount %>
+        <% end %>
     </div>
     <div class="px-2 divide-y space-y-2">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-secondary w-[80%] line-clamp-1">
-                Nulla dolor velit adipisicing duis excepteur esse in duis nostrud occaecat mollit incididunt deserunt sunt. Ut ut sunt laborum ex occaecat eu tempor labore enim adipisicing minim ad. Est in quis eu dolore occaecat excepteur fugiat dolore nisi aliqua fugiat enim ut cillum. Labore enim duis nostrud eu. Est ut eiusmod consequat irure quis deserunt ex. Enim laboris dolor magna pariatur. Dolor et ad sint voluptate sunt elit mollit officia ad enim sit consectetur enim.
+                <%= @data.brand %> - <%= @data.car_type %>
             </h2>
             <div class="text-sm font-medium text-secondary-light">
-                2019
+                <%= @data.year %>
             </div>
         </div>
         <div class="flex justify-between">
@@ -19,7 +35,7 @@
                 <div>
                     <label class="text-xs font-medium text-secondary-light">Sold for</label>
                     <div class="font-semibold text-secondary">
-                        23,911
+                        <%= price_display_component amount: sold_amount, id: @data.id, price_type: "sold" %>
                         <span class="text-xs text-primary">USD</span>
                     </div>
                 </div>
@@ -27,9 +43,9 @@
              <div class="flex gap-2">
                 <%= icon('fa-solid', 'sack-dollar', class:"text-xl text-primary self-end mb-1")%>
                 <div>
-                    <label class="text-xs font-medium text-secondary-light">Buy now</label>
+                    <label class="text-xs font-medium text-secondary-light">Bid now</label>
                     <div class="font-semibold text-secondary">
-                        26,911
+                        <%= price_display_component amount: hold_amount, id: @data.id, price_type: "hold" %>
                         <span class="text-xs text-primary">USD</span>
                     </div>
                 </div>

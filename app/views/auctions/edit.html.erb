@@ -1,8 +1,7 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing auction</h1>
+<div class="mx-auto md:w-2/3 w-full space-y-3 mt-3">
+  <h1 class="font-bold text-2xl text-secondary">Editing auction</h1>
 
   <%= render "form", auction: @auction %>
 
-  <%= link_to "Show this auction", @auction, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to auctions", auctions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to "View this auction", @auction, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium underline text-primary" %>
 </div>
