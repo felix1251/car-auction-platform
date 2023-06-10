@@ -9,3 +9,7 @@
 <%= turbo_stream.replace "bid_btn_#{id}" do %>
    <%= bid_btn_component hold_amount: hold_amount, id: id %>
 <% end %>
+
+<%= turbo_stream.replace "bid_count_#{id}" do %>
+   <%= bid_count_component count: bid_count, id: id %>
+<% end %>

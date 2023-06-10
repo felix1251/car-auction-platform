@@ -52,4 +52,18 @@
             </div>
         </div>
     </div>
+    <div class="flex pt-1">
+        <%= bid_count_component count: @data.bid_count, id: @data.id %>
+
+            <div class="flex items-center pl-2 gap-1.5">
+                <%= link_to auction_path(id: @data.id), class: "hover:scale-105" do %>
+                    <%= icon('fa-solid', 'eye', class:"text-2xl text-secondary")%>
+                <% end %>
+                <% unless current_page?(profile_path(id: @data.user_id))  %>
+                    <%= link_to profile_path(id: @data.user_id), class: "hover:scale-105" do %>
+                        <%= icon('fa-solid', 'user-circle', class:"text-2xl text-primary")%>
+                    <% end %>
+                <% end %>
+            </div>
+    </div>
 </div>

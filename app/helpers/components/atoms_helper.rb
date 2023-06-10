@@ -16,6 +16,10 @@ module Components
       render Atoms::BidButtonComponent.new id: id, hold_amount: hold_amount
     end
 
+    def bid_count_component count:, id:
+      render Atoms::BidCountComponent.new count: count, id: id
+    end
+
     def input_text_component form:, label: nil, name: "", placeholder: nil, required: false
       render Atoms::InputTextComponent.new form: form, label: label, name: name, placeholder: placeholder, required: required
     end

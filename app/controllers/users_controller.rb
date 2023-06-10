@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
@@ -8,6 +9,12 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+  end
+
+  def profile
+    @user = User.find(params[:id])
+    _auctions = @user.auctions.order(id: :asc)
+    @pagy, @auctions = pagy(_auctions, items: params[:per_page])
   end
 
   # GET /users/new

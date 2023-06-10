@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_023540) do
     t.datetime "expired_at", null: false
     t.bigint "user_id"
     t.integer "price_hold", default: 0
+    t.integer "bid_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_auctions_on_user_id"

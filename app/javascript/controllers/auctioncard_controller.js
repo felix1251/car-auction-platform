@@ -13,7 +13,5 @@ export default class extends Controller {
             "bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)]"
         );
         target.classList.add("bg-gray-400");
-        const text = document.getElementById("text");
-        if (text) text.innerHTML = "BIDDING";
     }
 }
