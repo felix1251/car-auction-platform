@@ -33,7 +33,11 @@ class Auction < ApplicationRecord
         Turbo::StreamsChannel.broadcast_render_to(
             "bid_cards",
             template: "auctions/bidcard",
-            locals: { hold_amount: Auction.hold_cal(self), sold_amount: Auction.sold_cal(self), id: self.id }
+            locals: {
+                id: self.id,
+                hold_amount: Auction.hold_cal(self),
+                sold_amount: Auction.sold_cal(self)
+            }
         )
     end
 end
