@@ -2,11 +2,11 @@
 
 require "test_helper"
 
-class Atoms::BidCardComponentTest < ViewComponent::TestCase
+class Atoms::PriceViewComponentTest < ViewComponent::TestCase
   def test_component_renders_something_useful
     # assert_equal(
     #   %(<span>Hello, components!</span>),
-    #   render_inline(Atoms::BidCardComponent.new(message: "Hello, components!")).css("span").to_html
+    #   render_inline(Atoms::PriceViewComponent.new(message: "Hello, components!")).css("span").to_html
     # )
   end
 end

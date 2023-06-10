@@ -1,6 +1,7 @@
 <div class="flex gap-4 py-4">
     <%= sticky_filter_component %>
     <div class="w-full space-y-4">
+        <%= turbo_stream_from(:bid_cards) %>
         <div class="grid grid-cols-3 gap-4">
             <% @auctions.each do | auction | %>
                 <%= bid_card_component data: auction %>

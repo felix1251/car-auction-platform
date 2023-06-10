@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 class Atoms::BidCardComponent < ViewComponent::Base
-    delegate :current_user, to: :helpers
+    delegate :current_user, :price_display_component, :bid_btn_component, to: :helpers
 
     def initialize data:
         @data = data
     end
 
-    def bid_amount
-        if @data.price_hold > 0
-            @data.price_hold + @data.price_increment
-        else
-            @data.opening_price + @data.price_increment
-        end
+    def hold_amount
+        Auction.hold_cal(@data)
+    end
+
+    def sold_amount
+        Auction.sold_cal(@data)
     end
 
     def owned_by_current_user

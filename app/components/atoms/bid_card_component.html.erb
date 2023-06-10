@@ -17,14 +17,7 @@
             <% end %>
         <% end %>
         <% if !is_expired && !owned_by_current_user%>
-            <%= button_to bid_path(id: @data.id), method: :post,
-                params: { bid_amount: bid_amount },
-                data: { auctioncard_target: "action", action: "click->auctioncard#disableBtn"},
-                class: "flex flex-row gap-2 px-4 py-2 absolute bottom-3 bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] rounded-lg right-3 cursor-pointer hover:shadow-md hover:scale-105" do
-            %>
-                <%= icon('fa-solid', 'gavel', class:"text-2xl text-white", id: "bid-icon", data: { auctioncard_target: "icon" } )%>
-                <span class="font-semibold text-white uppercase">Bid</span>
-            <% end %>
+            <%= bid_btn_component id: @data.id, hold_amount: hold_amount %>
         <% end %>
     </div>
     <div class="px-2 divide-y space-y-2">
@@ -42,11 +35,7 @@
                 <div>
                     <label class="text-xs font-medium text-secondary-light">Sold for</label>
                     <div class="font-semibold text-secondary">
-                        <% if @data.price_hold > 0 %>
-                             <%= @data.price_hold %>
-                        <% else %>
-                            <%= @data.opening_price %>
-                        <% end %>
+                        <%= price_display_component amount: sold_amount, id: @data.id, price_type: "sold" %>
                         <span class="text-xs text-primary">USD</span>
                     </div>
                 </div>
@@ -56,7 +45,7 @@
                 <div>
                     <label class="text-xs font-medium text-secondary-light">Bid now</label>
                     <div class="font-semibold text-secondary">
-                        <%= bid_amount %>
+                        <%= price_display_component amount: hold_amount, id: @data.id, price_type: "hold" %>
                         <span class="text-xs text-primary">USD</span>
                     </div>
                 </div>

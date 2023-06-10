@@ -8,6 +8,14 @@ module Components
       render Atoms::BidCardComponent.new data: data
     end
 
+    def price_display_component amount:, id:, price_type:
+      render Atoms::PriceDisplayComponent.new amount: amount, id: id, price_type: price_type
+    end
+
+    def bid_btn_component id:, hold_amount:
+      render Atoms::BidButtonComponent.new id: id, hold_amount: hold_amount
+    end
+
     def input_text_component form:, label: nil, name: "", placeholder: nil, required: false
       render Atoms::InputTextComponent.new form: form, label: label, name: name, placeholder: placeholder, required: required
     end
