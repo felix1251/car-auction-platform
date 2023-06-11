@@ -2,8 +2,37 @@
     <label class="font-semibold text-secondary">
         Filter
         <span class="font-normal text-sm">
-            (shows 20 results)
+            (shows <%= @count %> results)
         </span>
     </label>
-    <%= btn_component label: "Search", extra_css: "w-fit"%>
+    <%= form_tag root_path,
+        method: :get,
+        class: "flex flex-col gap-3" do
+    %>
+        <div class="grid space-y-1">
+            <%= label_tag "Brand", nil, class: "font-semibold text-secondary" %>
+            <%= text_field_tag :brand,
+                params[:brand],
+                placeholder: "Ex. Toyota",
+                class: "input-primary"
+            %>
+        </div>
+         <div class="grid space-y-1">
+            <%= label_tag "Type", nil, class: "font-semibold text-secondary" %>
+            <%= text_field_tag :car_type,
+                params[:car_type],
+                placeholder: "Ex. Camry",
+                class: "input-primary"
+            %>
+        </div>
+         <div class="grid space-y-1">
+            <%= label_tag "Year", nil, class: "font-semibold text-secondary" %>
+            <%= select_tag :year,
+                options_for_select((Time.now.year).downto(Time.now.year - 400).to_a , params[:year]),
+                include_blank: "All",
+                class: "input-primary"
+            %>
+        </div>
+        <%= btn_component label: "Search", extra_css: "text-sm mt-1.5", html_type: "submit"%>
+    <% end %>
 </aside>

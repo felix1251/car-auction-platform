@@ -9,6 +9,9 @@ class Auction < ApplicationRecord
     validates :brand, presence: true
     validates :year, presence: true
     validates :expired_at, presence: true
+    scope :with_brand, -> (value) { where("brand LIKE '#{value}%'") }
+    scope :with_type, -> (value) { where("car_type LIKE '#{value}%'") }
+    scope :with_year, -> (value) { where(year: value) }
     after_update_commit :brodcast_auction_card
 
     def self.sold_cal auction
