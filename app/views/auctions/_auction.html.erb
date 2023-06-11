@@ -4,7 +4,7 @@
     <%= image_tag auction.image, class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center" %>
     <div class="w-full pt-3 grid gap-2">
       <div class="flex gap-2 items-center justify-between">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <label class="font-semibold text-secondary text-2xl line-clamp-1">
             <%= auction.brand %> - <%= auction.car_type %>
           </label>
@@ -46,16 +46,29 @@
         </div>
       </div>
       <div class="mt-2">
-        <%= bid_btn_component id: auction.id,
-          hold_amount: Auction.hold_cal(auction),
-          floating: false,
-          size: "lg",
-          extra_css: "w-[200px]"
-        %>
+        <% if auction.user_id == current_user.id %>
+          <%= link_to edit_auction_path(id: auction.id),
+              data: { auctioncard_target: "action" },
+              class:"underline text-primary rounded-sm px-4 py-2 hover:scale-105 btn-primary" do
+          %>
+              <%= icon('fa-solid', 'edit', class:"text-xl text-white", data: { auctioncard_target: "icon" }) %>
+          <% end %>
+        <% end %>
+        <% if auction.expired_at >= Date.today && auction.user_id != current_user.id%>
+          <%= bid_btn_component id: auction.id,
+            hold_amount: Auction.hold_cal(auction),
+            floating: false,
+            size: "lg",
+            extra_css: "w-[200px]"
+          %>
+        <% end %>
       </div>
     </div>
   </div>
-  <div class="w-[350px] border py-3 overflow-auto rounded-sm">
-
+  <div class="w-[350px] border px-3 py-2 overflow-auto rounded-sm">
+    <label class="text-sm font-semibold flex items-center gap-2">
+      Realtime bids
+      <div class="w-3 h-3 rounded-full bg-green-500 animate-pulse duration-75"></div>
+    </label>
   </div>
 </div>
