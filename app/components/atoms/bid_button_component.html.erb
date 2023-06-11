@@ -3,7 +3,7 @@
     method: :post,
     params: { bid_amount: @hold_amount },
     data: { auctioncard_target: "action", action: "click->auctioncard#disableBtn"},
-    class: "flex flex-row gap-2 px-3 py-1.5 transition-colors duration-300 absolute bottom-3 bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] rounded-lg right-3 cursor-pointer hover:shadow-md hover:scale-105" do
+    class: "flex flex-row gap-2 px-3 py-1.5 transition-colors duration-300 absolute bottom-3 bg-[conic-gradient(from_1turn,#87C1FF,#007BC5)] rounded-sm right-3 cursor-pointer hover:shadow-md hover:scale-105" do
 %>
     <%= icon('fa-solid', 'gavel', class:"text-2xl text-white", id: "bid-icon", data: { auctioncard_target: "icon" } )%>
     <span id="text" class="font-semibold text-white uppercase">Bid</span>

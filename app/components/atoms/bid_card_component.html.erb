@@ -11,7 +11,7 @@
         <% if owned_by_current_user %>
             <%= link_to edit_auction_path(id: @data.id),
                 data: { auctioncard_target: "action" },
-                class:"underline text-primary absolute bottom-3 rounded-lg px-3 p-1.5 right-3 hover:scale-105 btn-primary" do
+                class:"underline text-primary absolute bottom-3 rounded-sm px-3 p-1.5 right-3 hover:scale-105 btn-primary" do
             %>
                 <%= icon('fa-solid', 'edit', class:"text-xl text-white self-end mb-1", data: { auctioncard_target: "icon" }) %>
             <% end %>

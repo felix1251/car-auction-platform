@@ -8,8 +8,8 @@ module Components
       render Atoms::BidCardComponent.new data: data
     end
 
-    def price_display_component amount:, id:, price_type:
-      render Atoms::PriceDisplayComponent.new amount: amount, id: id, price_type: price_type
+    def price_display_component amount:, id:, price_type:, size: "md"
+      render Atoms::PriceDisplayComponent.new amount: amount, id: id, price_type: price_type, size: size
     end
 
     def bid_btn_component id:, hold_amount:

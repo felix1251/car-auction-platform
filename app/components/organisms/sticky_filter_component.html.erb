@@ -1,15 +1,17 @@
-<aside class="h-fit p-4 bg-white min-w-[280px] sticky top-3 gap-3 rounded-sm border grid">
-    <label class="font-semibold text-primary">
+<aside class="p-4 h-fit bg-white min-w-[280px] sticky top-3 rounded-sm border grid">
+    <div class="font-semibold text-primary">
         <%= icon('fa-solid', 'filter', class:"text-md")%>
         Filter
         <span class="font-normal text-sm text-secondary">
             (shows <%= @count %> results)
         </span>
-    </label>
+    </div>
     <%= form_tag root_path,
         method: :get,
-        class: "flex flex-col gap-3" do
+        class: "grid gap-3 overflow-hidden max-h-0 md:max-h-[400px] transition-max-height duration-200 ease-in-out" do
     %>
+        <div>
+        </div>
         <div class="grid space-y-1">
             <%= label_tag "Brand", nil, class: "font-semibold text-secondary" %>
             <%= text_field_tag :brand,
@@ -18,7 +20,7 @@
                 class: "input-primary"
             %>
         </div>
-         <div class="grid space-y-1">
+        <div class="grid space-y-1">
             <%= label_tag "Type", nil, class: "font-semibold text-secondary" %>
             <%= text_field_tag :car_type,
                 params[:car_type],
@@ -26,7 +28,7 @@
                 class: "input-primary"
             %>
         </div>
-         <div class="grid space-y-1">
+        <div class="grid space-y-1">
             <%= label_tag "Year", nil, class: "font-semibold text-secondary" %>
             <%= select_tag :year,
                 options_for_select((Time.now.year).downto(Time.now.year - 400).to_a , params[:year]),

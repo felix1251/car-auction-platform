@@ -25,6 +25,9 @@ module.exports = {
                 103: "1.03",
                 107: "1.07",
             },
+            transitionProperty: {
+                "max-height": "max-height",
+            },
         },
     },
     plugins: [

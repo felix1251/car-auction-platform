@@ -25,6 +25,8 @@ class HomeController < ApplicationController
       params[:stream].present?
 
       request.format = :turbo_stream
+    else
+      request.format = :html
     end
   end
 end

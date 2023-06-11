@@ -1,9 +1,9 @@
 <%= turbo_stream_from(:bid_cards) %>
-<div class="flex gap-4 py-4">
+<div class="grid md:flex gap-4 py-4">
     <%= sticky_filter_component count: @pagy.count %>
     <div class="w-full space-y-4">
         <% if @auctions.present? %>
-            <div id="paginate_auctions" class="grid grid-cols-3 gap-4">
+            <div id="paginate_auctions" class="grid md:grid-cols-2 lg:grid-cols-3 gap-2.5 md:gap-4">
                 <% @auctions.each do | auction | %>
                     <%= bid_card_component data: auction %>
                 <% end %>
