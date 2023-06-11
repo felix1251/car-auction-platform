@@ -12,8 +12,8 @@ module Components
       render Atoms::PriceDisplayComponent.new amount: amount, id: id, price_type: price_type, size: size
     end
 
-    def bid_btn_component id:, hold_amount:
-      render Atoms::BidButtonComponent.new id: id, hold_amount: hold_amount
+    def bid_btn_component id:, hold_amount:, floating: true, size: "sm", extra_css: ""
+      render Atoms::BidButtonComponent.new id: id, hold_amount: hold_amount, floating: floating, size: size, extra_css: extra_css
     end
 
     def bid_count_component count:, id:

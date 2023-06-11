@@ -1,10 +1,10 @@
 <div id="<%= dom_id auction %>" class="flex gap-4 w-full">
   <div class="w-full flex flex-col">
     <%= image_tag auction.image, class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center" %>
-    <div class="w-full py-3 grid gap-2">
+    <div class="w-full pt-3 grid gap-2">
       <div class="flex gap-2 items-center justify-between">
         <div class="flex items-center gap-3">
-          <label class="font-semibold text-secondary text-2xl">
+          <label class="font-semibold text-secondary text-2xl line-clamp-1">
             <%= auction.brand %> - <%= auction.car_type %>
           </label>
           <span class="text-secondary-light font-medium text-xl">
@@ -38,14 +38,23 @@
           <div>
               <label class="text-sm font-medium text-secondary-light">Bid now</label>
               <div class="font-semibold text-secondary">
-                  <%= price_display_component amount: Auction.hold_cal(auction), id: auction.id, price_type: "sold", size: "xl" %>
+                  <%= price_display_component amount: Auction.hold_cal(auction), id: auction.id, price_type: "hold", size: "xl" %>
                   <span class="text-sm text-primary">USD</span>
               </div>
           </div>
         </div>
       </div>
+      <div class="mt-2">
+        <%= bid_btn_component id: auction.id,
+          hold_amount: Auction.hold_cal(auction),
+          floating: false,
+          size: "lg",
+          extra_css: "w-[200px]"
+        %>
+      </div>
     </div>
   </div>
-  <div class="min-w-[300px] border border-secondary py-3 overflow-auto rounded-sm">
+  <div class="w-[350px] border py-3 overflow-auto rounded-sm">
+
   </div>
 </div>
