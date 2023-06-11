@@ -13,6 +13,7 @@ class Auction < ApplicationRecord
     scope :with_type, -> (value) { where("car_type LIKE '#{value}%'") }
     scope :with_year, -> (value) { where(year: value) }
     after_update_commit :brodcast_auction_card
+    after_update_commit :brodcast_auction_page
 
     def self.sold_cal auction
         if auction.price_hold > 0
@@ -36,6 +37,19 @@ class Auction < ApplicationRecord
         Turbo::StreamsChannel.broadcast_render_to(
             "bid_cards",
             template: "auctions/bidcard",
+            locals: {
+                id: self.id,
+                hold_amount: Auction.hold_cal(self),
+                sold_amount: Auction.sold_cal(self),
+                bid_count: self.bid_count
+            }
+        )
+    end
+
+    def brodcast_auction_page
+        Turbo::StreamsChannel.broadcast_render_to(
+            "auction_#{self.id}",
+            template: "auctions/auction",
             locals: {
                 id: self.id,
                 hold_amount: Auction.hold_cal(self),

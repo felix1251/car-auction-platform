@@ -1,4 +1,5 @@
-<div id="<%= dom_id auction %>" class="flex gap-4 w-full">
+<%= turbo_stream_from("auction_#{auction.id}") %>
+<div data-controller="auctioncard" id="<%= dom_id auction %>" class="flex gap-4 w-full">
   <div class="w-full flex flex-col">
     <%= image_tag auction.image, class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center" %>
     <div class="w-full pt-3 grid gap-2">
