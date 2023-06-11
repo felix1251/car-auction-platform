@@ -22,6 +22,16 @@
     %>
 <% end %>
 
-<%= turbo_stream.replace "bid_count_#{id}" do %>
-    <%= bid_count_component count: bid_count, id: id %>
+<%= turbo_stream.replace "bid_count_realtime" do %>
+    <span id="bid_count_realtime">
+        (<%= bid_count %>)
+    </span>
 <% end %>
+
+<%= turbo_stream.prepend "bidders_realtime" do %>
+    <li class="px-3 py-1 border border-primary text-primary rounded-sm text-sm">
+        <%= fullname %> - $<%= sold_amount %>
+    </li>
+<% end %>
+
+

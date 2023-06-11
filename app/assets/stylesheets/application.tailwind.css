@@ -29,3 +29,29 @@
         @apply w-full font-normal rounded-sm text-secondary border border-secondary-light placeholder-gray-400;
     }
 }
+
+/* scroll bar style */
+:root {
+    --primary: #f0f0f0;
+    --secondary: #007bc5;
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--primary);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--secondary);
+    border-radius: 8px;
+}

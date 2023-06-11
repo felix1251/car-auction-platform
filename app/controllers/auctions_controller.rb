@@ -11,6 +11,11 @@ class AuctionsController < ApplicationController
 
   # GET /auctions/1 or /auctions/1.json
   def show
+    bidders = @auction.auction_transactions
+    bidders = bidders.select(:id, :fullname, :price_sold)
+    bidders = bidders.joins(:user).order(id: :desc)
+
+    @pagy, @bidders = pagy(bidders, items: 15)
   end
 
   # GET /auctions/new

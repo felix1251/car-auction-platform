@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     auctions = auctions.with_type(params[:car_type]) if params[:car_type].present?
     auctions = auctions.with_year(params[:year]) if params[:year].present?
 
-    @pagy, @auctions = pagy(auctions, items: params[:per_page], page: params[:page])
+    @pagy, @auctions = pagy(auctions.order(id: :desc), items: params[:per_page], page: params[:page])
 
     respond_to do |format|
       format.html
