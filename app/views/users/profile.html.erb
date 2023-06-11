@@ -2,7 +2,7 @@
 <div class="w-full space-y-4 my-4">
     <h2 class="text-xl text-secondary font-semibold">
         <% if @user.id == current_user.id %>
-            My auctions
+            My auctions - <%= @user.fullname %>
         <% else %>
             <%= @user.fullname %> auctions
         <% end %>

@@ -13,7 +13,6 @@
                         <%= icon('fa-solid', 'user-circle', class:"text-4xl text-primary") %>
                     <% end %>
                     <div>
-                        <div class="font-medium text-sm text-secondary"><%= current_user.fullname %></div>
                         <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "-mt-1 text-primary underline" %>
                     </div>
                 </div>
