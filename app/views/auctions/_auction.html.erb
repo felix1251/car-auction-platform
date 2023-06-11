@@ -16,7 +16,8 @@
             Closed
           </span>
         <% else %>
-          <span class="text-xl text-primary font-semibold">
+          <span class="text-xl text-secondary font-semibold flex items-center gap-2">
+            <%= icon('fa-solid', 'clock', class:"text-xl text-primary self-end mb-1")%>
             <%= auction.expired_at.to_formatted_s(:long_ordinal) %>
           </span>
         <% end %>
@@ -45,6 +46,6 @@
       </div>
     </div>
   </div>
-  <div class="min-w-[300px] border border-primary py-3 overflow-auto rounded-sm">
+  <div class="min-w-[300px] border border-secondary py-3 overflow-auto rounded-sm">
   </div>
 </div>
