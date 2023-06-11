@@ -1,0 +1,17 @@
+<% if @pagy.next %>
+    <div id="btn_next" class="grid place-items-center">
+        <%= button_to "Show more",
+            @link, {
+                class: 'btn-ghost',
+                method: :get,
+                params: {
+                    page: @pagy.next,
+                    stream: "stream_now",
+                    brand: @brand,
+                    car_type: @car_type,
+                    year: @year,
+                }
+            }
+        %>
+    </div>
+<% end %>

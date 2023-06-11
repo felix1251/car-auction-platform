@@ -8,15 +8,23 @@ class HomeController < ApplicationController
     auctions = auctions.with_type(params[:car_type]) if params[:car_type].present?
     auctions = auctions.with_year(params[:year]) if params[:year].present?
 
-    @pagy, @auctions = pagy(auctions, items: params[:per_page])
+    @pagy, @auctions = pagy(auctions, items: params[:per_page], page: params[:page])
 
     respond_to do |format|
       format.html
-      format.turbo_stream { render template: "auctions/paginate" }
+      format.turbo_stream {
+        render template: "auctions/paginate",
+        locals: { auctions: @auctions }
+      }
     end
   end
 
   def set_respond_type
-    request.format = :turbo_stream if params[:stream].present?
+    if params[:page].present? &&
+      params[:page].to_i >= 2 &&
+      params[:stream].present?
+
+      request.format = :turbo_stream
+    end
   end
 end

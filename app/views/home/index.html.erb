@@ -2,15 +2,16 @@
 <div class="flex gap-4 py-4">
     <%= sticky_filter_component count: @pagy.count %>
     <div class="w-full space-y-4">
-        <div class="grid grid-cols-3 gap-4">
+        <div id="paginate_auctions" class="grid grid-cols-3 gap-4">
             <% @auctions.each do | auction | %>
                 <%= bid_card_component data: auction %>
             <% end %>
         </div>
-        <% if @pagy.next %>
-            <div class="grid place-items-center">
-                <%= btn_component label: "Shore more", btn_type: "ghost", extra_css: "w-fit" %>
-            </div>
-        <%end%>
+        <%= btn_next_component link: root_path,
+            pagy: @pagy,
+            brand: params[:brand],
+            year: params[:year],
+            car_type: params[:car_type]
+        %>
     </div>
 </div>

@@ -47,5 +47,9 @@ module Components
     def notification_component notif_type: "info", msg: "message"
       render Atoms::NotificationComponent.new notif_type: notif_type, msg: msg
     end
+
+    def btn_next_component link:, brand:, car_type:, year: ,pagy:
+      render Atoms::BtnNextComponent.new link: link, brand: brand, car_type: car_type, year: year, pagy: pagy
+    end
   end
 end
