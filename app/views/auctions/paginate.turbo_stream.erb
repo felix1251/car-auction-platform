@@ -1,0 +1,15 @@
+<%= turbo_stream.append "paginate_auctions" do %>
+    <% @auctions.each do | auction | %>
+        <%= bid_card_component data: auction %>
+    <% end %>
+<% end %>
+
+<%= turbo_stream.replace "btn_next" do %>
+    <%= btn_next_component link: root_path,
+        pagy: @pagy,
+        brand: params[:brand],
+        year: params[:year],
+        car_type: params[:car_type]
+    %>
+<% end %>
+

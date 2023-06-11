@@ -1,19 +1,18 @@
 <nav class="h-20 border-b bg-white flex items-center">
     <div class="max-w-[1300px] mx-auto w-full px-5 flex justify-between">
-        <a href="/" class="font-black text-3xl text-secondary">
+        <a href="/" class="font-black text-2xl md:text-3xl text-secondary">
             Auction <span class="text-primary">Cars</span>
         </a>
         <div class="flex items-center gap-4">
                 <% if user_signed_in? %>
                 <%= link_to new_auction_path, class: "hover:scale-105" do %>
-                    <%= icon('fa-solid', 'square-plus', class:"text-4xl text-secondary") %>
+                    <%= icon('fa-solid', 'square-plus', class:"text-3xl md:text-4xl text-secondary") %>
                 <% end %>
                 <div class="flex gap-3 items-center">
                     <%= link_to profile_path(id: current_user.id), class: "hover:scale-105" do %>
-                        <%= icon('fa-solid', 'user-circle', class:"text-4xl text-primary") %>
+                        <%= icon('fa-solid', 'user-circle', class:"text-3xl md:text-4xl text-primary") %>
                     <% end %>
                     <div>
-                        <div class="font-medium text-sm text-secondary"><%= current_user.fullname %></div>
                         <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "-mt-1 text-primary underline" %>
                     </div>
                 </div>

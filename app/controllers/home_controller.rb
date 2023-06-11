@@ -1,7 +1,32 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_respond_type
 
   def index
-    @pagy, @auctions = pagy(Auction.order(id: :asc), items: params[:per_page])
+    auctions = Auction.order(id: :asc)
+    auctions = auctions.with_brand(params[:brand]) if params[:brand].present?
+    auctions = auctions.with_type(params[:car_type]) if params[:car_type].present?
+    auctions = auctions.with_year(params[:year]) if params[:year].present?
+
+    @pagy, @auctions = pagy(auctions.order(id: :desc), items: params[:per_page], page: params[:page])
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream {
+        render template: "auctions/paginate",
+        locals: { auctions: @auctions }
+      }
+    end
+  end
+
+  def set_respond_type
+    if params[:page].present? &&
+      params[:page].to_i >= 2 &&
+      params[:stream].present?
+
+      request.format = :turbo_stream
+    else
+      request.format = :html
+    end
   end
 end

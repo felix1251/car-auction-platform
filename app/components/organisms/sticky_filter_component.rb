@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Organisms::StickyFilterComponent < ViewComponent::Base
-    delegate :btn_component, to: :helpers
+    delegate :btn_component, :input_text_component, to: :helpers
 
-    def initialize
+    def initialize count:
+        @count = count
     end
 end

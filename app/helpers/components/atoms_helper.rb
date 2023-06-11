@@ -1,19 +1,19 @@
 module Components
   module AtomsHelper
-    def btn_component btn_type: "primary", label: "Click me!", extra_css: ""
-      render Atoms::ButtonComponent.new btn_type: btn_type, label: label, extra_css: extra_css
+    def btn_component btn_type: "primary", label: "Click me!", extra_css: "", html_type: "button"
+      render Atoms::ButtonComponent.new btn_type: btn_type, label: label, extra_css: extra_css, html_type: html_type
     end
 
     def bid_card_component data: []
       render Atoms::BidCardComponent.new data: data
     end
 
-    def price_display_component amount:, id:, price_type:
-      render Atoms::PriceDisplayComponent.new amount: amount, id: id, price_type: price_type
+    def price_display_component amount:, id:, price_type:, size: "md"
+      render Atoms::PriceDisplayComponent.new amount: amount, id: id, price_type: price_type, size: size
     end
 
-    def bid_btn_component id:, hold_amount:
-      render Atoms::BidButtonComponent.new id: id, hold_amount: hold_amount
+    def bid_btn_component id:, hold_amount:, floating: true, size: "sm", extra_css: ""
+      render Atoms::BidButtonComponent.new id: id, hold_amount: hold_amount, floating: floating, size: size, extra_css: extra_css
     end
 
     def bid_count_component count:, id:
@@ -46,6 +46,10 @@ module Components
 
     def notification_component notif_type: "info", msg: "message"
       render Atoms::NotificationComponent.new notif_type: notif_type, msg: msg
+    end
+
+    def btn_next_component link:, brand:, car_type:, year: ,pagy:
+      render Atoms::BtnNextComponent.new link: link, brand: brand, car_type: car_type, year: year, pagy: pagy
     end
   end
 end

@@ -61,7 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_023540) do
     t.integer "bid_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["brand"], name: "index_auctions_on_brand"
+    t.index ["car_type"], name: "index_auctions_on_car_type"
     t.index ["user_id"], name: "index_auctions_on_user_id"
+    t.index ["year"], name: "index_auctions_on_year"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

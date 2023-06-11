@@ -1,16 +1,26 @@
 <%= turbo_stream_from(:bid_cards) %>
-<div class="flex gap-4 py-4">
-    <%= sticky_filter_component %>
+<div class="grid md:flex gap-4 py-4">
+    <%= sticky_filter_component count: @pagy.count %>
     <div class="w-full space-y-4">
-        <div class="grid grid-cols-3 gap-4">
-            <% @auctions.each do | auction | %>
-                <%= bid_card_component data: auction %>
-            <% end %>
-        </div>
-        <% if @pagy.next %>
-            <div class="grid place-items-center">
-                <%= btn_component label: "Shore more", btn_type: "ghost", extra_css: "w-fit" %>
+        <% if @auctions.present? %>
+            <div id="paginate_auctions" class="grid md:grid-cols-2 lg:grid-cols-3 gap-2.5 md:gap-4">
+                <% @auctions.each do | auction | %>
+                    <%= bid_card_component data: auction %>
+                <% end %>
             </div>
-        <%end%>
+            <%= btn_next_component link: root_path,
+                pagy: @pagy,
+                brand: params[:brand],
+                year: params[:year],
+                car_type: params[:car_type]
+            %>
+        <% else %>
+            <div class="grid place-items-center h-96">
+                <h2 class="text-secondary text-3xl font-semibold grid place-items-center">
+                     <%= icon('fa-solid', 'box-open', class:"text-7xl text-primary")%>
+                    No auctions found
+                </h2>
+            </div>
+        <% end %>
     </div>
 </div>

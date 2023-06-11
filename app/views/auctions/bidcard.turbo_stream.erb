@@ -1,9 +1,15 @@
 <%= turbo_stream.replace "price_hold_#{id}" do %>
-   <%= price_display_component amount: hold_amount, id: id, price_type: "hold" %>
+   <%= price_display_component amount: hold_amount,
+      id: id,
+      price_type: "hold"
+   %>
 <% end %>
 
 <%= turbo_stream.replace "price_sold_#{id}" do %>
-   <%= price_display_component amount: sold_amount, id: id, price_type: "sold" %>
+   <%= price_display_component amount: sold_amount,
+      id: id,
+      price_type: "sold"
+   %>
 <% end %>
 
 <%= turbo_stream.replace "bid_btn_#{id}" do %>
