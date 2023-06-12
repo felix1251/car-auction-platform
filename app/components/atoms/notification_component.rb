@@ -21,6 +21,21 @@ class Atoms::NotificationComponent < ViewComponent::Base
     end
   end
 
+  def iconcss
+    case @notif_type
+    when "success"
+      "text-green-500"
+    when "error"
+      "text-red-500"
+    when "warning"
+      "text-yellow-500"
+    when "info"
+      "text-blue-500"
+    else
+      "text-blue-500"
+    end
+  end
+
   def icon_type
     case @notif_type
     when "success"

@@ -1,3 +1,3 @@
-<div data-controller="notification" id="notification" class="shadow-lg flex items-center justify-center bg-white gap-3 px-5 py-2 absolute top-5 left-0 right-0 mx-auto max-w-xs rounded-xl border <%= twcss %>">
-   <%= icon('fa-solid', icon_type, class:"text-xl") %> <%= @msg %>
+<div data-controller="notification" id="notification" class="z-10 shadow-lg flex items-center justify-center text-secondary bg-white gap-3 px-5 py-2 fixed top-5 left-0 right-0 mx-auto max-w-xs rounded-md border <%= twcss %>">
+   <%= icon('fa-solid', icon_type, class:"text-xl #{iconcss}") %> <%= @msg %>
 </div>

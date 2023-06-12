@@ -21,9 +21,12 @@
 <% end %>
 
 <% if expired_at <= Time.now && bid_count > 0 %>
-    <%= turbo_stream.replace "bid_card_timer_#{id}" do %>
-        <div id="bid_card_timer<%= id %>" class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
-            Closed
-         </div>
-    <% end %>
+   <%= turbo_stream.replace "bid_card_timer_#{id}" do %>
+      <div id="bid_card_timer_<%= id %>" class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
+         Closed
+      </div>
+   <% end %>
+   <%= turbo_stream.replace "bid_btn_#{id}" do %>
+      <div></div>
+   <% end %>
 <% end %>

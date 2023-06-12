@@ -105,14 +105,20 @@ class AuctionsController < ApplicationController
       unless @auction.user_id != current_user.id &&
             (@auction.expired_at >= Time.now || @auction.bid_count == 0) &&
             @price_to_update >= @auction.opening_price &&
-            @price_to_update >= @auction.price_hold &&
-            !@auction.auction_transactions.where(price_sold: @price_to_update).any?
+            @price_to_update >= @auction.price_hold
 
         respond_to do |format|
-          format.turbo_stream { render "bid_notif",
-            locals: { msg: "Bid Invalid, try to refresh page", error: true },
-            status: :bad_request
-          }
+          if @auction.auction_transactions.where(price_sold: @price_to_update).any?
+            format.turbo_stream { render "bid_notif",
+              locals: { msg: "Sorry, somebody has bid quicker with this price. Please check the new price.", error: true },
+              status: :bad_request
+            }
+          else
+            format.turbo_stream { render "bid_notif",
+              locals: { msg: "Bid Invalid, try to refresh page", error: true },
+              status: :bad_request
+            }
+          end
         end
       end
     end
