@@ -51,14 +51,6 @@ rails db:migrate
 rails db:seed
 ```
 
-<sub>Note: Expect warnings running <b>rails db:seed</b> command, because we are creating multple records at the same time for the purpose of having records in our db for the meantime. Though it won't break the app just a warning.</sub>
-
-**Reset Setup** (Only if needed, not required)
-
-```
-rails db:reset
-```
-
 ## **Run Local Server**
 
 ```
