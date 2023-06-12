@@ -1,4 +1,4 @@
-# XYZ Books
+# CAr AUCTION APP
 
 **_Ruby version 3.0.0_** (make sure you install the correct version of ruby)
 
