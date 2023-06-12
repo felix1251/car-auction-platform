@@ -16,7 +16,7 @@
                 <%= icon('fa-solid', 'edit', class:"text-xl text-white self-end mb-1", data: { auctioncard_target: "icon" }) %>
             <% end %>
         <% end %>
-        <% if !is_expired && !owned_by_current_user%>
+        <% if !is_expired && !owned_by_current_user %>
             <%= bid_btn_component id: @data.id, hold_amount: hold_amount %>
         <% end %>
     </div>

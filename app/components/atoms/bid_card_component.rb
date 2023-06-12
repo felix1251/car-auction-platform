@@ -21,6 +21,6 @@ class Atoms::BidCardComponent < ViewComponent::Base
     end
 
     def is_expired
-        @data.expired_at <= Date.today
+        @data.expired_at <= Date.today && @data.bid_count > 0
     end
 end

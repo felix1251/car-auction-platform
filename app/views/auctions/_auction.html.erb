@@ -1,9 +1,9 @@
 <%= turbo_stream_from("auction_#{auction.id}") %>
-<div data-controller="auctioncard" id="<%= dom_id auction %>" class="flex gap-4 w-full">
+<div data-controller="auctioncard" id="<%= dom_id auction %>" class="grid md:flex gap-4 w-full">
   <div class="w-full flex flex-col">
     <%= image_tag auction.image, class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center" %>
     <div class="w-full pt-3 grid gap-2">
-      <div class="flex gap-2 items-center justify-between">
+      <div class="grid md:flex gap-3 md:gap-0 md:items-center md:justify-between">
         <div class="flex items-center gap-2">
           <label class="font-semibold text-secondary text-2xl line-clamp-1">
             <%= auction.brand %> - <%= auction.car_type %>
@@ -12,7 +12,7 @@
             (<%= auction.year %>)
           </span>
         </div>
-        <% if auction.expired_at <= Date.today %>
+        <% if auction.expired_at <= Date.today && auction.bid_count > 0%>
           <span class="text-xl text-red-500 font-semibold">
             Closed
           </span>
@@ -54,7 +54,7 @@
               <%= icon('fa-solid', 'edit', class:"text-xl text-white", data: { auctioncard_target: "icon" }) %>
           <% end %>
         <% end %>
-        <% if auction.expired_at >= Date.today && auction.user_id != current_user.id%>
+        <% if (auction.expired_at >= Date.today || auction.bid_count == 0) && auction.user_id != current_user.id%>
           <%= bid_btn_component id: auction.id,
             hold_amount: Auction.hold_cal(auction),
             floating: false,
@@ -65,7 +65,7 @@
       </div>
     </div>
   </div>
-  <div class="w-[350px] border px-3 py-2 rounded-sm h-full">
+  <div class="w-full md:w-[350px] border px-3 py-2 rounded-sm h-full">
     <div class="text-[15px] font-semibold flex items-center gap-2">
       <div>
         Realtime bids
@@ -75,7 +75,7 @@
     </div>
     <ul id="bidders_realtime" class="grid space-y-1.5 mt-2 overflow-x-auto h-[450px]">
       <% @bidders.each do |bidder| %>
-        <li class="px-3 py-1 border border-primary text-primary rounded-sm text-sm">
+        <li class="px-3 py-1 border border-primary text-primary rounded-sm text-sm h-fit">
           <%= bidder.fullname %> - $<%= bidder.price_sold %>
         </li>
       <% end %>
