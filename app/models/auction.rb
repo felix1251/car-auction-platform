@@ -40,7 +40,8 @@ class Auction < ApplicationRecord
                 id: self.id,
                 hold_amount: Auction.hold_cal(self),
                 sold_amount: Auction.sold_cal(self),
-                bid_count: self.bid_count
+                bid_count: self.bid_count,
+                expired_at: self.expired_at,
             }
         )
     end

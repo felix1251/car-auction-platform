@@ -3,12 +3,12 @@ class HomeController < ApplicationController
   before_action :set_respond_type
 
   def index
-    auctions = Auction.order(id: :asc)
+    auctions = Auction.order(id: :desc)
     auctions = auctions.with_brand(params[:brand]) if params[:brand].present?
     auctions = auctions.with_type(params[:car_type]) if params[:car_type].present?
     auctions = auctions.with_year(params[:year]) if params[:year].present?
 
-    @pagy, @auctions = pagy(auctions.order(id: :desc), items: params[:per_page], page: params[:page])
+    @pagy, @auctions = pagy(auctions, items: params[:per_page], page: params[:page])
 
     respond_to do |format|
       format.html
