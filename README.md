@@ -57,12 +57,12 @@ rails db:seed
 ./bin/dev
 ```
 
-## **Sample Account**
+## **Sample Accounts**
 
 **Admin**
 
 ```
-email: admind@dev.com
+email: admin@dev.com
 password: Password1!
 ```
 
