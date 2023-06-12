@@ -1,24 +1,66 @@
-# README
+# XYZ Books
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+**_Ruby version 3.0.0_** (make sure you install the correct version of ruby)
 
-Things you may want to cover:
+**_Ruby on Rails version 7.0.5~_**
 
-* Ruby version
+[Ruby and ROR Installation (Ubuntu, Mac, Windows)](https://gorails.com/setup/ubuntu/22.04)
 
-* System dependencies
+<a href="" target="_blank" rel="noopener">Live App</a>
 
-* Configuration
+## Clone Repo
 
-* Database creation
+```
+git clone https://github.com/felix1251/car-auction-platform.git
+```
 
-* Database initialization
+```
+cd xyz_books
+```
 
-* How to run the test suite
+## Install Dependencies
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+bundle install
+```
 
-* Deployment instructions
+## **Setup DB**
 
-* ...
+Setup env variables for mysql credentials (create .env file inside project directory)
+
+Make sure MySQL is installed on your machine
+
+**ENV variables**
+
+```
+DB_USERNAME = your_db_username
+DB_PASSWORD = your_db_pasword
+```
+
+**Active Record**
+
+```
+rails db:create
+```
+
+```
+rails db:migrate
+```
+
+```
+rails db:seed
+```
+
+<sub>Note: Expect warnings running <b>rails db:seed</b> command, because we are creating multple records at the same time for the purpose of having records in our db for the meantime. Though it won't break the app just a warning.</sub>
+
+**Reset Setup** (Only if needed, not required)
+
+```
+rails db:reset
+```
+
+## **Run Local Server**
+
+```
+./bin/dev
+```
