@@ -20,7 +20,11 @@ class Atoms::BidCardComponent < ViewComponent::Base
         @data.user_id == current_user.id
     end
 
+    def is_user_admin
+        current_user.role == "admin"
+    end
+
     def is_expired
-        @data.expired_at <= Date.today && @data.bid_count > 0
+        @data.expired_at <= Time.now && @data.bid_count > 0
     end
 end

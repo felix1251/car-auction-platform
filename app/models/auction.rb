@@ -2,7 +2,7 @@ class Auction < ApplicationRecord
     include Devise
     belongs_to :user
     has_one_attached :image
-    has_many :auction_transactions
+    has_many :auction_transactions, dependent: :destroy
 
     validates :opening_price, presence: true
     validates :price_increment, presence: true
@@ -40,7 +40,8 @@ class Auction < ApplicationRecord
                 id: self.id,
                 hold_amount: Auction.hold_cal(self),
                 sold_amount: Auction.sold_cal(self),
-                bid_count: self.bid_count
+                bid_count: self.bid_count,
+                expired_at: self.expired_at,
             }
         )
     end

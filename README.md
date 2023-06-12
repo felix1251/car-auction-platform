@@ -1,4 +1,4 @@
-# CAr AUCTION APP
+# CAR AUCTION APP
 
 **_Ruby version 3.0.0_** (make sure you install the correct version of ruby)
 
@@ -55,4 +55,25 @@ rails db:seed
 
 ```
 ./bin/dev
+```
+
+## **Sample Account**
+
+**Admin**
+
+```
+email: admind@dev.com
+password: Password1!
+```
+
+**Regular User**
+
+```
+email: jdcruz@dev.com
+password: Password1!
+```
+
+```
+email: mmakiling@dev.com
+password: Password1!
 ```

@@ -1,8 +1,8 @@
 class AuctionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_auction, only: %i[ show bid ]
-  before_action :is_admin?, only: %i[ destroy ]
-  before_action :set_owner_only, only: %i[ edit update]
+  before_action :set_auction, only: %i[ show bid destroy ]
+  before_action :is_mine_or_admin, only: %i[ destroy ]
+  before_action :set_owner_only, only: %i[ edit update ]
   before_action :is_bid_valid, only: %i[ bid ]
 
   # GET /auctions or /auctions.json
@@ -75,7 +75,7 @@ class AuctionsController < ApplicationController
     @auction.destroy
 
     respond_to do |format|
-      format.html { redirect_to auctions_url, notice: "Auction was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Auction was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -99,20 +99,37 @@ class AuctionsController < ApplicationController
       params.require(:auction).permit(:bid_amount)
     end
 
+    def is_mine_or_admin
+      unless current_user.id == @auction.user_id || current_user.role == "admin"
+        respond_to do |format|
+          format.turbo_stream { render "bid_notif",
+            locals: { msg: "You are not authorized to delete and auction", error: true },
+            status: :bad_request
+          }
+        end
+      end
+    end
+
     def is_bid_valid
       @price_to_update = params[:bid_amount].to_i || 0
 
       unless @auction.user_id != current_user.id &&
-            (@auction.expired_at >= Date.today || @auction.bid_count == 0) &&
+            (@auction.expired_at >= Time.now || @auction.bid_count == 0) &&
             @price_to_update >= @auction.opening_price &&
-            @price_to_update >= @auction.price_hold &&
-            !@auction.auction_transactions.where(price_sold: @price_to_update).any?
+            @price_to_update >= @auction.price_hold
 
         respond_to do |format|
-          format.turbo_stream { render "bid_notif",
-            locals: { msg: "Bid Invalid, try to refresh page", error: true },
-            status: :bad_request
-          }
+          if @auction.auction_transactions.where(price_sold: @price_to_update).any?
+            format.turbo_stream { render "bid_notif",
+              locals: { msg: "Sorry, somebody has bid quicker with this price. Please check the new price.", error: true },
+              status: :bad_request
+            }
+          else
+            format.turbo_stream { render "bid_notif",
+              locals: { msg: "Bid Invalid, try to refresh page", error: true },
+              status: :bad_request
+            }
+          end
         end
       end
     end

@@ -16,7 +16,8 @@ class AuctionTransaction < ApplicationRecord
             hold_amount: Auction.hold_cal(curr_auction),
             sold_amount: Auction.sold_cal(curr_auction),
             bid_count: curr_auction.bid_count,
-            fullname: user.fullname || "********"
+            fullname: user.fullname || "********",
+            expired_at: curr_auction.expired_at,
         }
     )
   end

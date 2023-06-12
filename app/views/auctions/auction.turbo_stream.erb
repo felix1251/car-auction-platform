@@ -29,9 +29,18 @@
 <% end %>
 
 <%= turbo_stream.prepend "bidders_realtime" do %>
-    <li class="px-3 py-1 border border-primary text-primary rounded-sm text-sm">
+    <li class="px-3 py-1 border border-primary h-fit text-primary rounded-sm text-sm">
         <%= fullname %> - $<%= sold_amount %>
     </li>
 <% end %>
 
+<% if expired_at <= Time.now && bid_count > 0 %>
+    <%= turbo_stream.replace "auction_timer" do %>
+        <div id="auction_timer">
+            <span class="text-xl text-red-500 font-semibold">
+                    Closed
+            </span>
+        </div>
+    <% end %>
+<% end %>
 

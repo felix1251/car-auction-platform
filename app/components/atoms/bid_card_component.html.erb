@@ -1,5 +1,5 @@
 <div data-controller="auctioncard" id="auction_<%= @data.id %>" class="bg-white border rounded-sm p-1.5 space-y-2">
-    <div class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
+    <div id="bid_card_timer_<%= @data.id %>" class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center">
         <% if is_expired %>
             Closed
         <% else %>
@@ -7,13 +7,19 @@
         <% end %>
     </div>
     <div class="relative">
-        <%= image_tag @data.image, data: { preview_target: "image" }, class: "bg-gray-200 h-56 rounded-b-xl object-cover border w-full object-center" %>
-        <% if owned_by_current_user %>
+        <%= image_tag @data.image, data: { preview_target: "image" }, class: "z-0 bg-gray-200 h-56 rounded-b-xl object-cover border w-full object-center" %>
+        <% if owned_by_current_user || is_user_admin %>
             <%= link_to edit_auction_path(id: @data.id),
                 data: { auctioncard_target: "action" },
-                class:"underline text-primary absolute bottom-3 rounded-sm px-3 p-1.5 right-3 hover:scale-105 btn-primary" do
+                class:"text-primary absolute bottom-3 rounded-sm px-3 p-1.5 right-3 hover:scale-105 btn-primary" do
             %>
                 <%= icon('fa-solid', 'edit', class:"text-xl text-white self-end mb-1", data: { auctioncard_target: "icon" }) %>
+            <% end %>
+            <%= button_to auction_path(id: @data.id),
+                method: :delete,
+                class: "text-primary absolute top-3 rounded-sm px-3 p-1.5 right-3 hover:scale-105 btn-primary" do
+            %>
+                <%= icon('fa-solid', 'trash', class:"text-xl text-white self-end mb-1") %>
             <% end %>
         <% end %>
         <% if !is_expired && !owned_by_current_user %>
