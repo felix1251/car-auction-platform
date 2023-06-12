@@ -48,13 +48,21 @@
         </div>
       </div>
       <div class="mt-2">
-        <% if auction.user_id == current_user.id %>
-          <%= link_to edit_auction_path(id: auction.id),
-              data: { auctioncard_target: "action" },
-              class:"underline text-primary rounded-sm px-4 py-2 hover:scale-105 btn-primary" do
-          %>
-              <%= icon('fa-solid', 'edit', class:"text-xl text-white", data: { auctioncard_target: "icon" }) %>
-          <% end %>
+        <% if auction.user_id == current_user.id || current_user.role == "admin"%>
+          <div class="flex gap-3">
+            <%= link_to edit_auction_path(id: auction.id),
+                data: { auctioncard_target: "action" },
+                class:"grid place-items-center text-primary rounded-sm px-4 py-2 hover:scale-105 btn-primary" do
+            %>
+                <%= icon('fa-solid', 'edit', class:"text-xl text-white", data: { auctioncard_target: "icon" }) %>
+            <% end %>
+            <%= button_to auction_path(id: auction.id),
+                method: :delete,
+                class: "grid place-items-center text-primary rounded-sm px-4 p-2 hover:scale-105 btn-primary" do
+            %>
+                <%= icon('fa-solid', 'trash', class:"text-xl text-white self-end mb-1") %>
+            <% end %>
+          </div>
         <% end %>
         <% if (auction.expired_at >= Time.now || auction.bid_count == 0) && auction.user_id != current_user.id%>
           <%= bid_btn_component id: auction.id,

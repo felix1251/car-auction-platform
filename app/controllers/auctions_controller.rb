@@ -1,8 +1,8 @@
 class AuctionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_auction, only: %i[ show bid ]
-  before_action :is_admin?, only: %i[ destroy ]
-  before_action :set_owner_only, only: %i[ edit update]
+  before_action :set_auction, only: %i[ show bid destroy ]
+  before_action :is_mine_or_admin, only: %i[ destroy ]
+  before_action :set_owner_only, only: %i[ edit update ]
   before_action :is_bid_valid, only: %i[ bid ]
 
   # GET /auctions or /auctions.json
@@ -75,7 +75,7 @@ class AuctionsController < ApplicationController
     @auction.destroy
 
     respond_to do |format|
-      format.html { redirect_to auctions_url, notice: "Auction was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Auction was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -97,6 +97,17 @@ class AuctionsController < ApplicationController
 
     def bid_params
       params.require(:auction).permit(:bid_amount)
+    end
+
+    def is_mine_or_admin
+      unless current_user.id == @auction.user_id || current_user.role == "admin"
+        respond_to do |format|
+          format.turbo_stream { render "bid_notif",
+            locals: { msg: "You are not authorized to delete and auction", error: true },
+            status: :bad_request
+          }
+        end
+      end
     end
 
     def is_bid_valid

@@ -2,7 +2,7 @@ class Auction < ApplicationRecord
     include Devise
     belongs_to :user
     has_one_attached :image
-    has_many :auction_transactions
+    has_many :auction_transactions, dependent: :destroy
 
     validates :opening_price, presence: true
     validates :price_increment, presence: true
