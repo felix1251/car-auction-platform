@@ -6,7 +6,7 @@
 
 [Ruby and ROR Installation (Ubuntu, Mac, Windows)](https://gorails.com/setup/ubuntu/22.04)
 
-<a href="" target="_blank" rel="noopener">Live App</a>
+<!-- <a href="" target="_blank" rel="noopener">Live App</a> -->
 
 ## Clone Repo
 
@@ -66,7 +66,7 @@ email: admind@dev.com
 password: Password1!
 ```
 
-**Regular User**
+**Regular users**
 
 ```
 email: jdcruz@dev.com
