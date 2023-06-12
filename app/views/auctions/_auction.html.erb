@@ -1,9 +1,9 @@
 <%= turbo_stream_from("auction_#{auction.id}") %>
-<div data-controller="auctioncard" id="<%= dom_id auction %>" class="flex gap-4 w-full">
+<div data-controller="auctioncard" id="<%= dom_id auction %>" class="grid md:flex gap-4 w-full">
   <div class="w-full flex flex-col">
     <%= image_tag auction.image, class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center" %>
     <div class="w-full pt-3 grid gap-2">
-      <div class="flex gap-2 items-center justify-between">
+      <div class="grid md:flex gap-3 md:gap-0 md:items-center md:justify-between">
         <div class="flex items-center gap-2">
           <label class="font-semibold text-secondary text-2xl line-clamp-1">
             <%= auction.brand %> - <%= auction.car_type %>
