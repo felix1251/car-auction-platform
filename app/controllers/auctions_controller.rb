@@ -1,13 +1,14 @@
 class AuctionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_auction, only: %i[ show bid ]
-  before_action :set_owner_only, only: %i[ edit update destroy]
+  before_action :set_owner_only, only: %i[ edit update ]
+  before_action :is_admin?, only: %i[ destroy ]
   before_action :is_bid_valid, only: %i[ bid ]
 
   # GET /auctions or /auctions.json
-  def index
-    @auctions = Auction.all
-  end
+  # def index
+  #   @auctions = Auction.all
+  # end
 
   # GET /auctions/1 or /auctions/1.json
   def show
@@ -87,24 +88,6 @@ class AuctionsController < ApplicationController
 
     def set_owner_only
       @auction = current_user.auctions.find(params[:id])
-    end
-
-    def is_bid_valid
-      @price_to_update = params[:bid_amount].to_i || 0
-
-      unless @auction.user_id != current_user.id &&
-            (@auction.expired_at >= Date.today || @auction.bid_count == 0) &&
-            @price_to_update >= @auction.opening_price &&
-            @price_to_update >= @auction.price_hold &&
-            !@auction.auction_transactions.where(price_sold: @price_to_update).any?
-
-        respond_to do |format|
-          format.turbo_stream { render "bid_notif",
-            locals: { msg: "Bid Invalid, try to refresh page", error: true },
-            status: :bad_request
-          }
-        end
-      end
     end
 
     # Only allow a list of trusted parameters through.

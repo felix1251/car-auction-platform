@@ -1,4 +1,4 @@
 <div class="grid gap-1">
     <%= @form.label @label || @name, class: "input-label" %>
-    <%= @form.select @name, (Time.now.year).downto(Time.now.year - 400).to_a, { selected: Time.now }, { class: "input-primary", required: @required}%>
+    <%= @form.select @name, (Time.now.year).downto(Time.now.year - 400).to_a, { selected: Time.now }, { class: "input-primary", required: @required} %>
 </div>
