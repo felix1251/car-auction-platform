@@ -1,3 +1,6 @@
-<span id="price_<%= @price_type %>_<%= @id %>" class="<%= sizecss %>">
+<span
+    id="price_<%= @price_type %>_<%= @id %>"
+    class="font-semibold text-secondary <%= sizecss %>"
+>
     <%= number_with_delimiter(@amount) %>
 </span>

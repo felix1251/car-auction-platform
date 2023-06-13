@@ -1,19 +1,19 @@
-<div
-    id="auction_<%= @data.id %>"
-    data-controller="auctioncard"
-    class="bg-white border rounded-sm p-1.5 space-y-2"
->
-    <div
-        id="bid_card_timer_<%= @data.id %>"
-        class="text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center"
-    >
+<%= content_tag :div,
+    id="auction_#{@data.id}",
+    data: { controller: "auctioncard" },
+    class: "bg-white border rounded-sm p-1.5 space-y-2" do
+%>
+    <%= content_tag :div,
+        id: "bid_card_timer_#{@data.id}",
+        class: "text-xs rounded-t-xl bg-gradient-to-r from-[#007BC5] to-[#87C1FF] font-medium -mb-2 text-white py-2 text-center" do
+    %>
         <% if is_expired %>
             Closed
         <% else %>
             Expires at: <%= @data.expired_at.to_formatted_s(:long_ordinal) %>
         <% end %>
-    </div>
-    <div class="relative">
+    <% end %>
+    <%= content_tag :div, class: "relative" do %>
         <%= image_tag @data.image,
             data: { preview_target: "image" },
             class: "z-0 bg-gray-200 h-56 rounded-b-xl object-cover border w-full object-center"
@@ -38,47 +38,43 @@
         <% if !is_expired && !owned_by_current_user %>
             <%= bid_btn_component id: @data.id, hold_amount: hold_amount %>
         <% end %>
-    </div>
+    <% end %>
     <div class="px-2 divide-y space-y-2">
-        <div class="flex justify-between items-center">
-            <h2 class="font-semibold text-secondary w-[80%] line-clamp-1">
+        <%= content_tag :div, class:"flex justify-between items-center" do %>
+            <%= content_tag :h2, class:"font-semibold text-secondary w-[80%] line-clamp-1" do %>
                 <%= @data.brand %> - <%= @data.car_type %>
-            </h2>
-            <div class="text-sm font-medium text-secondary-light">
-                <%= @data.year %>
-            </div>
-        </div>
-        <div class="flex justify-between">
-            <div class="flex gap-2">
+            <% end %>
+            <%= content_tag :span, @data.year, class:"text-sm font-medium text-secondary-light" %>
+        <% end %>
+        <%= content_tag :dic, class:"flex justify-between" do %>
+            <%= content_tag :div, class: "flex gap-2" do %>
                 <%= icon('fa-solid', 'gavel', class:"text-xl text-primary self-end mb-1") %>
-                <div>
-                    <label class="text-xs font-medium text-secondary-light">Sold for</label>
-                    <div class="font-semibold text-secondary">
+                <%= content_tag :div do %>
+                    <%= label_tag "Sold for", nil, class: "text-xs font-medium text-secondary-light" %>
+                    <%= content_tag :div, class: "font-semibold text-secondary" do %>
                         <%= price_display_component amount: sold_amount,
                             id: @data.id,
                             price_type: "sold"
                         %>
-                        <span class="text-xs text-primary">USD</span>
-                    </div>
-                </div>
-            </div>
-             <div class="flex gap-2">
+                        <%= content_tag :span, "USD", class: "text-xs text-primary" %>
+                    <% end %>
+                <% end %>
+            <% end %>
+             <%= content_tag :div, class:"flex gap-2" do %>
                 <%= icon('fa-solid', 'sack-dollar', class:"text-xl text-primary self-end mb-1") %>
-                <div>
-                    <label class="text-xs font-medium text-secondary-light">
-                        Bid now
-                    </label>
-                    <div class="font-semibold text-secondary">
+                <%= content_tag :div do %>
+                    <%= label_tag "Bid now", nil, class: "text-xs font-medium text-secondary-light" %>
+                    <%= content_tag :div, class: "font-semibold text-secondary" do %>
                         <%= price_display_component amount: hold_amount, id: @data.id, price_type: "hold" %>
-                        <span class="text-xs text-primary">USD</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+                        <%= content_tag :span, "USD", class: "text-xs text-primary" %>
+                    <% end %>
+                <% end %>
+             <% end %>
+        <% end %>
     </div>
-    <div class="flex pt-1">
+    <%= content_tag :div, class: "flex pt-1" do %>
         <%= bid_count_component count: @data.bid_count, id: @data.id %>
-        <div class="flex items-center pl-2 gap-1.5">
+        <%= content_tag :div, class:"flex items-center pl-2 gap-1.5" do %>
             <%= link_to auction_path(id: @data.id), class: "hover:scale-105" do %>
                 <%= icon('fa-solid', 'eye', class:"text-2xl text-secondary") %>
             <% end %>
@@ -87,6 +83,6 @@
                     <%= icon('fa-solid', 'user-circle', class:"text-2xl text-primary")%>
                 <% end %>
             <% end %>
-        </div>
-    </div>
-</div>
+        <% end %>
+    <% end %>
+<% end %>
