@@ -15,7 +15,7 @@ git clone https://github.com/felix1251/car-auction-platform.git
 ```
 
 ```
-cd xyz_books
+cd car-auction-platform
 ```
 
 ## Install Dependencies
