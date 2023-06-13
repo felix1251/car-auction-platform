@@ -1,7 +1,13 @@
 <%= turbo_stream_from("auction_#{auction.id}") %>
-<div data-controller="auctioncard" id="<%= dom_id auction %>" class="grid md:flex gap-4 w-full">
+<div
+  id="<%= dom_id auction %>"
+  data-controller="auctioncard"
+  class="grid md:flex gap-4 w-full"
+>
   <div class="w-full flex flex-col">
-    <%= image_tag auction.image, class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center" %>
+    <%= image_tag auction.image,
+        class: "h-96 bg-gray-200 w-screen rounded-sm object-cover border object-center"
+    %>
     <div class="w-full pt-3 grid gap-2">
       <div class="grid md:flex gap-3 md:gap-0 md:items-center md:justify-between">
         <div class="flex items-center gap-2">
@@ -13,58 +19,75 @@
           </span>
         </div>
         <div id="auction_timer">
-          <% if auction.expired_at <= Time.now && auction.bid_count > 0%>
-            <span class="text-xl text-red-500 font-semibold">
-              Closed
-            </span>
-          <% else %>
-            <span class="text-xl text-secondary font-semibold flex items-center gap-2">
+          <% if can_bid?(auction) %>
+           <span class="text-xl text-secondary font-semibold flex items-center gap-2">
               <%= icon('fa-solid', 'clock', class:"text-xl text-primary self-end mb-1")%>
               <%= auction.expired_at.to_formatted_s(:long_ordinal) %>
+            </span>
+          <% else %>
+            <span class="text-xl text-red-500 font-semibold">
+              Closed
             </span>
           <% end %>
         </div>
       </div>
       <div class="flex gap-8">
         <div class="flex gap-2">
-          <%= icon('fa-solid', 'gavel', class:"text-2xl text-primary self-end mb-1")%>
+          <%= icon('fa-solid', 'gavel',
+              class:"text-2xl text-primary self-end mb-1")
+          %>
           <div>
               <label class="text-sm font-medium text-secondary-light">Sold for</label>
               <div class="font-semibold text-secondary">
-                  <%= price_display_component amount: Auction.sold_cal(auction), id: auction.id, price_type: "sold", size: "xl" %>
+                  <%= price_display_component amount: Auction.sold_cal(auction),
+                      id: auction.id, price_type: "sold", size: "xl"
+                  %>
                   <span class="text-sm text-primary">USD</span>
               </div>
           </div>
         </div>
         <div class="flex gap-2">
-          <%= icon('fa-solid', 'sack-dollar', class:"text-2xl text-primary self-end mb-1")%>
+          <%= icon('fa-solid', 'sack-dollar',
+              class:"text-2xl text-primary self-end mb-1")
+          %>
           <div>
               <label class="text-sm font-medium text-secondary-light">Bid now</label>
               <div class="font-semibold text-secondary">
-                  <%= price_display_component amount: Auction.hold_cal(auction), id: auction.id, price_type: "hold", size: "xl" %>
+                  <%= price_display_component amount: Auction.hold_cal(auction),
+                      id: auction.id, price_type: "hold", size: "xl"
+                  %>
                   <span class="text-sm text-primary">USD</span>
               </div>
           </div>
         </div>
       </div>
       <div class="mt-2 grid gap-3">
-        <% if owned_by_current_user?(id: auction.user_id) || is_current_user_admin? %>
+        <% if owned_by_current_user?(id: auction.user_id) ||
+              is_current_user_admin?
+        %>
           <div class="flex gap-3">
-            <%= link_to edit_auction_path(id: auction.id),
+            <%= link_to edit_auction_path id: auction.id,
                 data: { auctioncard_target: "action" },
                 class:"grid place-items-center text-primary rounded-sm px-4 py-2 hover:scale-105 btn-primary" do
             %>
-                <%= icon('fa-solid', 'edit', class:"text-xl text-white", data: { auctioncard_target: "icon" }) %>
+                <%= icon('fa-solid', 'edit',
+                    class:"text-xl text-white",
+                    data: { auctioncard_target: "icon" })
+                %>
             <% end %>
-            <%= button_to auction_path(id: auction.id),
+            <%= button_to auction_path id: auction.id,
                 method: :delete,
                 class: "grid place-items-center text-primary rounded-sm px-4 py-2 hover:scale-105 btn-primary" do
             %>
-                <%= icon('fa-solid', 'trash', class:"text-xl text-white self-end mb-1") %>
+                <%= icon('fa-solid', 'trash',
+                    class:"text-xl text-white self-end mb-1")
+                %>
             <% end %>
           </div>
         <% end %>
-        <% if (auction.expired_at >= Time.now || auction.bid_count == 0) && !owned_by_current_user?(id: auction.user_id) %>
+        <% if can_bid?(auction) &&
+              !owned_by_current_user?(id: auction.user_id)
+        %>
           <%= bid_btn_component id: auction.id,
             hold_amount: Auction.hold_cal(auction),
             floating: false,
@@ -79,11 +102,16 @@
     <div class="text-[15px] font-semibold flex items-center gap-2">
       <div>
         Realtime bids
-        <span id="bid_count_realtime">(<%= auction.bid_count %>)</span>
+        <span id="bid_count_realtime">
+          (<%= auction.bid_count %>)
+        </span>
       </div>
       <div class="w-3.5 h-3.5 rounded-full bg-green-500 animate-pulse duration-75"></div>
     </div>
-    <ul id="bidders_realtime" class="space-y-1.5 mt-2 overflow-x-auto h-[450px]">
+    <ul
+      id="bidders_realtime"
+      class="space-y-1.5 mt-2 overflow-x-auto h-[450px]"
+    >
       <% @bidders.each do |bidder| %>
         <li class="px-3 py-1 border border-primary text-primary rounded-sm text-sm h-fit">
           <%= bidder.fullname %> - $<%= bidder.price_sold %>
