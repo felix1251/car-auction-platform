@@ -1,4 +1,4 @@
-<%= turbo_stream_from("auction_#{auction.id}") %>
+<%= turbo_stream_from(dom_id auction) %>
 <div
   id="<%= dom_id auction %>"
   data-controller="auctioncard"
