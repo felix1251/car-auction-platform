@@ -3,8 +3,8 @@
         <a href="/" class="font-black text-2xl md:text-3xl text-secondary">
             Auction <span class="text-primary">Cars</span>
         </a>
-        <div class="flex items-center gap-4">
-                <% if user_signed_in? %>
+        <% if user_signed_in? %>
+            <div class="flex items-center gap-4">
                 <%= link_to new_auction_path, class: "hover:scale-105" do %>
                     <%= icon('fa-solid', 'square-plus', class:"text-3xl md:text-4xl text-secondary") %>
                 <% end %>
@@ -16,7 +16,7 @@
                         <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: "-mt-1 text-primary underline" %>
                     </div>
                 </div>
-            <% end %>
-        </div>
+            </div>
+        <% end %>
     </div>
 </nav>
