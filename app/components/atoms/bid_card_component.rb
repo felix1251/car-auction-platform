@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Atoms::BidCardComponent < ViewComponent::Base
-    delegate :current_user, :price_display_component,
+    delegate :current_user, :price_display_component, :is_current_user_admin?,
     :bid_btn_component, :bid_count_component, to: :helpers
 
     def initialize data:
@@ -18,10 +18,6 @@ class Atoms::BidCardComponent < ViewComponent::Base
 
     def owned_by_current_user
         @data.user_id == current_user.id
-    end
-
-    def is_user_admin
-        current_user.role == "admin"
     end
 
     def is_expired

@@ -8,7 +8,7 @@
     </div>
     <div class="relative">
         <%= image_tag @data.image, data: { preview_target: "image" }, class: "z-0 bg-gray-200 h-56 rounded-b-xl object-cover border w-full object-center" %>
-        <% if owned_by_current_user || is_user_admin %>
+        <% if owned_by_current_user || is_current_user_admin? %>
             <%= link_to edit_auction_path(id: @data.id),
                 data: { auctioncard_target: "action" },
                 class:"text-primary absolute bottom-3 rounded-sm px-3 p-1.5 right-3 hover:scale-105 btn-primary" do

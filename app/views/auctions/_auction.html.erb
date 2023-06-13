@@ -47,8 +47,8 @@
           </div>
         </div>
       </div>
-      <div class="mt-2">
-        <% if auction.user_id == current_user.id || current_user.role == "admin"%>
+      <div class="mt-2 grid gap-3">
+        <% if owned_by_current_user?(id: auction.user_id) || is_current_user_admin? %>
           <div class="flex gap-3">
             <%= link_to edit_auction_path(id: auction.id),
                 data: { auctioncard_target: "action" },
@@ -58,13 +58,13 @@
             <% end %>
             <%= button_to auction_path(id: auction.id),
                 method: :delete,
-                class: "grid place-items-center text-primary rounded-sm px-4 p-2 hover:scale-105 btn-primary" do
+                class: "grid place-items-center text-primary rounded-sm px-4 py-2 hover:scale-105 btn-primary" do
             %>
                 <%= icon('fa-solid', 'trash', class:"text-xl text-white self-end mb-1") %>
             <% end %>
           </div>
         <% end %>
-        <% if (auction.expired_at >= Time.now || auction.bid_count == 0) && auction.user_id != current_user.id%>
+        <% if (auction.expired_at >= Time.now || auction.bid_count == 0) && !owned_by_current_user?(id: auction.user_id) %>
           <%= bid_btn_component id: auction.id,
             hold_amount: Auction.hold_cal(auction),
             floating: false,
