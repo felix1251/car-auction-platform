@@ -227,7 +227,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    view_component (2.82.0)
+    view_component (2.83.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -266,7 +266,7 @@ DEPENDENCIES
   pagy (~> 6.0)
   pg (~> 1.1)
   puma (~> 5.0)
-  rails (~> 7.0.5)
+  rails (~> 7.0.6)
   redis (~> 4.0)
   selenium-webdriver
   sprockets-rails

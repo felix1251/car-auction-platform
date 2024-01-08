@@ -20,7 +20,7 @@ RUN gem install bundler
 RUN bundle install --without development test
 
 COPY . .
-RUN rm -rf .env
+# RUN rm -rf .env
 RUN bundle exec rake assets:precompile
 
 COPY entrypoint.sh /usr/bin/
