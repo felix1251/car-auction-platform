@@ -76,9 +76,7 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 2.0"
-
 gem "pagy", "~> 6.0"
-
 gem "view_component", "~> 2.82"
-
 gem "font-awesome-sass", "~> 6.4.0"
+gem 'dotenv-rails'
