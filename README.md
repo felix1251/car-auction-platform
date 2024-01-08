@@ -2,9 +2,9 @@
 
 [auction.felixabacajen.info](https://auction.felixabacajen.info/)
 
-**_Ruby version 3.0.0_** (make sure you install the correct version of ruby)
+**_Ruby version 3.2.2_** (make sure you install the correct version of ruby)
 
-**_Ruby on Rails version 7.0.5~_**
+**_Ruby on Rails version 7.0.6~_**
 
 [Ruby and ROR Installation (Ubuntu, Mac, Windows)](https://gorails.com/setup/ubuntu/22.04)
 
