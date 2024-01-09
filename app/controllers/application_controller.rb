@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
     include Pagy::Backend
     before_action :configure_sign_up_params, only: [:create], if: -> { devise_controller? }
-    skip_before_action :verify_authenticity_token
 
     private
 
